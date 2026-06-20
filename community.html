@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="new-post-input"
-                        onclick="location.href='login.html'">
+                        onclick="goPost()">
 
                         <span>
                             分享你的想法...（登录后发布）
@@ -98,9 +98,7 @@
 
                     </div>
 
-                    <a href="login.html" class="btn-pink">
-                        发帖
-                    </a>
+                    <a onclick="goPost()" class="btn-pink" style="cursor:pointer">发帖</a>
 
                 </div>
 
@@ -579,6 +577,14 @@
 <!-- ================= JS ================= -->
 
 <script src="js/navbar.js"></script>
-
+<script>
+function goPost() {
+  if (Auth.isLoggedIn()) {
+    location.href = 'post.html';
+  } else {
+    location.href = 'login.html?back=post.html';
+  }
+}
+</script>
 </body>
 </html>
