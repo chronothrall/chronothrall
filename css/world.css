@@ -1,0 +1,404 @@
+@charset "utf-8";
+
+/* =======================
+   world
+======================= */
+
+/* =====================
+   基础
+===================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Arial", "PingFang SC", sans-serif;
+    background: url("../images/background1.png") center center / cover no-repeat fixed;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    filter: grayscale(0.08) saturate(0.9) contrast(1.05) brightness(1.02);
+}
+
+/* 整体容器 */
+.app {
+    min-height: 100vh;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(4px);
+}
+/* =========================
+   navbar
+========================= */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 18px 0;
+    background: rgba(20,20,20,0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo span {
+    color: #ff4fa3;
+}
+
+.nav {
+    display: flex;
+    gap: 18px;
+}
+
+.nav a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.nav a:hover {
+    color: #fff;
+}
+
+.nav a.active {
+    color: #ff4fa3;
+}
+
+/* =========================
+   通用
+========================= */
+
+/* 今日推荐：垂直排列（标题在上，轮播在下） */
+.section {
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section .title {
+    margin-bottom: 0;
+}
+
+/* 排行榜 + 数据库：水平排列 */
+.main {
+    padding: 30px 0;
+    display: flex;
+}
+
+/* 社区：垂直排列（标题在上，卡片grid在下） */
+.community {
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.community .title {
+    margin-bottom: 0;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* =========================
+   今日推荐 Carousel（已优化）
+========================= */
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s ease;
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* ====== 关键遮罩（重新做过） ====== */
+.mask {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    padding: 32px;
+
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.25),
+        transparent
+    );
+
+    color: #fff;
+}
+
+/* tag（避免和你旧版冲突） */
+.mask .tag {
+    display: inline-block;
+    width: fit-content;
+
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+
+    background: rgba(255, 79, 163, 0.8);
+    margin-bottom: 12px;
+}
+
+/* 标题 */
+.mask h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    text-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* 描述 */
+.mask p {
+    font-size: 14px;
+    opacity: 0.85;
+    max-width: 500px;
+}
+
+/* =========================
+   dots（保留）
+========================= */
+
+.dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dot.active {
+    background: #fff;
+    transform: scale(1.2);
+}
+
+/* =========================
+   排行榜
+========================= */
+
+.rank {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.rank-header {
+    margin-bottom: 16px;
+}
+
+.rank-header .title {
+    margin-bottom: 4px;
+}
+
+.rank-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-size: 15px;
+}
+
+.rank-item:last-child {
+    border-bottom: none;
+}
+
+.rank-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ff4fa3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* =========================
+   数据库
+========================= */
+
+.db {
+    width: 280px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.db-item {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.db-item:last-child {
+    margin-bottom: 0;
+}
+
+.db-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    background: #ff4fa3;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+/* =========================
+   社区
+========================= */
+
+.comm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.comm-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.comm-card .tag {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(255, 79, 163, 0.8);
+    margin-bottom: 10px;
+}
+
+.comm-card h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.comm-card p {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-bottom: 14px;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+.rec-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+/* 内容居中限宽容器 */
+.inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+}
+
+/* logo-box */
+.logo-box {
+    width: 32px;
+    height: 32px;
+    background: #ff4fa3;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 16px;
+}
+
+/* navbar内层横排 */
+.navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* main内层横排 */
+.main-inner {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+section {
+    display: block;
+    width: 100%;
+}
+a.rank-item { text-decoration: none; color: #fff; cursor: pointer; }
+a.rank-item:hover { background: rgba(255,255,255,0.06); border-radius: 8px; }
+a.db-item { text-decoration: none; color: #fff; }
+a.comm-card { text-decoration: none; color: #fff; display: block; cursor: pointer; }
+a.comm-card:hover { transform: translateY(-2px); }

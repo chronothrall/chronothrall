@@ -1,0 +1,276 @@
+@charset "utf-8";
+/* ================================
+   post-detail.css
+================================ */
+
+.detail-layout {
+  display: flex;
+  gap: 28px;
+  padding: 0 0 60px;
+  align-items: flex-start;
+}
+
+.detail-main { flex: 1; min-width: 0; }
+
+/* 帖子卡片 */
+.post-detail-card { overflow: hidden; margin: 20px 0 28px; }
+
+.pd-header { padding: 28px 32px 20px; }
+
+.pd-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.pd-time { font-size: 12px; color: rgba(255,255,255,0.35); }
+
+.pd-title {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.35;
+  margin-bottom: 18px;
+}
+
+.pd-author-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pd-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4fa3, #a04fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.pd-author-name { font-size: 14px; font-weight: 700; }
+.pd-author-sub { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+.pd-divider { height: 1px; background: rgba(255,255,255,0.06); }
+
+.pd-content {
+  padding: 24px 32px;
+  font-size: 15px;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.85);
+}
+
+.pd-content p { margin-bottom: 14px; }
+.pd-content p:last-child { margin-bottom: 0; }
+.pd-content strong { color: #fff; }
+.pd-content blockquote {
+  border-left: 3px solid #ff4fa3;
+  padding: 8px 16px;
+  margin: 12px 0;
+  background: rgba(255,79,163,0.06);
+  border-radius: 0 8px 8px 0;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+}
+
+.pd-content img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 10px 0;
+  display: block;
+}
+
+.pd-tags {
+  padding: 0 32px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pd-tag {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255,79,163,0.1);
+  border: 1px solid rgba(255,79,163,0.25);
+  color: rgba(255,79,163,0.85);
+}
+
+/* 操作栏 */
+.pd-actions {
+  padding: 16px 32px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pd-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.55);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: inherit;
+}
+
+.pd-action-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.pd-action-btn.liked { background: rgba(255,79,163,0.15); border-color: rgba(255,79,163,0.3); color: #ff4fa3; }
+
+/* 评论区 */
+.comments-section { margin-top: 8px; }
+
+.comment-input-wrap {
+  display: flex;
+  gap: 14px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.comment-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4fa3, #a04fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.comment-input-body { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+.comment-textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s;
+}
+
+.comment-textarea:focus { border-color: rgba(255,79,163,0.4); }
+.comment-textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+.comment-input-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-tip { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+/* 评论列表 */
+.comment-list { display: flex; flex-direction: column; gap: 10px; }
+
+.comment-item {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+}
+
+.comment-avatar-sm {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4fa3ff, #4fffa0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.comment-body { flex: 1; }
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.comment-author { font-size: 13px; font-weight: 700; }
+.comment-time { font-size: 12px; color: rgba(255,255,255,0.3); }
+
+.comment-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 10px;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+}
+
+.comment-actions span {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+}
+
+.comment-actions span:hover { color: #ff4fa3; }
+.comment-liked { color: #ff4fa3 !important; }
+
+/* 侧栏 */
+.detail-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 68px;
+}
+
+.sidebar-card { padding: 20px; }
+.sidebar-title { font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.sidebar-title i { color: #ff4fa3; }
+
+.author-info { display: flex; align-items: center; gap: 12px; }
+.author-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, #ff4fa3, #a04fff);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; font-weight: 800; flex-shrink: 0;
+}
+.author-name { font-size: 14px; font-weight: 700; }
+.author-sub { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+.related-list { display: flex; flex-direction: column; gap: 10px; }
+.related-item {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+  display: block;
+  line-height: 1.4;
+}
+.related-item:hover { background: rgba(255,255,255,0.06); color: #fff; }/* CSS Document */
+

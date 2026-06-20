@@ -1,0 +1,150 @@
+@charset "utf-8";
+/* ================================
+   museum.css — 博物馆时间线页
+================================ */
+
+/* 年代分割线 */
+.era-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 32px;
+}
+
+.era-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,79,163,0.4), transparent);
+}
+
+.era-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ff4fa3;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+/* 时间线容器 */
+.timeline {
+    position: relative;
+    padding-left: 80px;
+}
+
+/* 竖线 */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 44px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(255,79,163,0.3) 5%, rgba(255,79,163,0.3) 95%, transparent);
+}
+
+/* 单条时间线 */
+.timeline-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    margin-bottom: 28px;
+}
+
+.tl-year {
+    position: absolute;
+    left: -80px;
+    width: 60px;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    padding-top: 18px;
+    flex-shrink: 0;
+}
+
+/* 节点圆点 */
+.tl-dot {
+    position: absolute;
+    left: -26px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,79,163,0.4);
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.tl-dot--gold {
+    background: #ff4fa3;
+    border-color: #ff4fa3;
+    box-shadow: 0 0 10px rgba(255,79,163,0.6);
+}
+
+/* 内容卡片 */
+.tl-card {
+    flex: 1;
+    padding: 22px 24px;
+    transition: transform 0.2s;
+}
+
+.tl-card:hover {
+    transform: translateX(4px);
+}
+
+.tl-card--highlight {
+    border-color: rgba(255,79,163,0.2);
+    background: rgba(255,79,163,0.05);
+}
+
+.tl-tag-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tl-impact {
+    font-size: 11px;
+    color: rgba(255,200,100,0.8);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.tl-card h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.tl-en {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 10px;
+}
+
+.tl-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.tl-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+}/* CSS Document */
+

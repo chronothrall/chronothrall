@@ -1,0 +1,230 @@
+/* =======================
+   首页
+======================= */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+.home-page{
+
+    width:100%;
+    height:100vh;
+
+    overflow:hidden;
+
+    position:relative;
+
+    background:
+    url("../images/background.png")
+    center center/cover
+    no-repeat;
+
+}
+
+/* 黑色遮罩 */
+
+.home-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    rgba(0,0,0,.55);
+
+    z-index:1;
+
+}
+
+/* 漫画网点 */
+
+.home-page::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+
+    opacity:.25;
+
+    background-image:
+    radial-gradient(
+    rgba(255,255,255,.7) 1px,
+    transparent 1px
+    );
+
+    background-size:
+    28px 28px;
+
+    animation:
+    dotsMove 60s linear infinite;
+
+}
+
+/* 内容层 */
+
+.overlay{
+
+    position:relative;
+
+    z-index:3;
+
+    width:100%;
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* 主标题 */
+
+.main-title{
+
+    font-size:110px;
+
+    font-weight:900;
+
+    color:white;
+
+    letter-spacing:8px;
+
+    text-transform:uppercase;
+
+    text-shadow:
+    0 0 15px rgba(0,0,0,.8),
+    4px 4px 0 rgba(0,0,0,.7);
+
+    animation:
+    floatTitle 6s ease-in-out infinite;
+
+}
+
+/* 副标题 */
+
+.sub-title{
+
+    margin-top:20px;
+
+    margin-bottom:50px;
+
+    font-size:22px;
+
+    letter-spacing:4px;
+
+    color:
+    rgba(255,255,255,.8);
+
+}
+
+/* ENTER按钮 */
+
+.enter-btn{
+
+    text-decoration:none;
+
+    color:white;
+
+    font-size:28px;
+
+    letter-spacing:3px;
+
+    padding:18px 70px;
+
+    border:
+    2px solid rgba(255,255,255,.85);
+
+    backdrop-filter:
+    blur(6px);
+
+    transition:.4s;
+
+    animation:
+    pulse 3s ease-in-out infinite;
+
+}
+
+.enter-btn:hover{
+
+    background:
+    rgba(255,255,255,.15);
+
+    transform:
+    scale(1.08);
+
+}
+
+/* 标题浮动 */
+
+@keyframes floatTitle{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+/* 按钮呼吸 */
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+/* 网点漂移 */
+
+@keyframes dotsMove{
+
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(-200px,-120px);
+    }
+
+}
+.quote{
+
+    margin-top:15px;
+
+    margin-bottom:40px;
+
+    font-size:16px;
+
+    font-style:italic;
+
+    color:
+    rgba(255,255,255,.65);
+
+}

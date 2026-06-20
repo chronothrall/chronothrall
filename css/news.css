@@ -1,0 +1,207 @@
+@charset "utf-8";
+/* ================================
+   news.css
+================================ */
+
+.news-layout {
+    display: flex;
+    gap: 28px;
+    padding: 40px 0;
+    align-items: flex-start;
+}
+
+.news-main { flex: 1; min-width: 0; }
+
+/* 置顶新闻 */
+.news-featured {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.news-featured-img {
+    width: 300px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.featured-placeholder {
+    font-size: 48px;
+    color: rgba(255,255,255,0.1);
+}
+
+.news-featured-body {
+    flex: 1;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.news-featured-body h2 {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.news-featured-body p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    flex: 1;
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.news-time {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+}
+
+/* 新闻列表 */
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.news-item {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.news-item:hover { transform: translateX(4px); }
+
+.news-item-img {
+    width: 80px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: rgba(255,255,255,0.15);
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.news-item-body {
+    flex: 1;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.news-item-body h3 {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.news-item-body h3:hover { color: #ff4fa3; }
+
+.news-item-body p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+}
+
+/* 右侧边栏 */
+.news-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sidebar-card { padding: 20px; }
+
+.sidebar-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar-title i { color: #ff4fa3; }
+
+/* 快讯 */
+.flash-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.flash-item {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 12px;
+}
+
+.flash-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.flash-time {
+    font-size: 11px;
+    color: rgba(255,79,163,0.8);
+    font-weight: 700;
+    width: 38px;
+    flex-shrink: 0;
+}
+
+/* 放映日历 */
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.schedule-date {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255,79,163,0.15);
+    border: 1px solid rgba(255,79,163,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ff4fa3;
+    flex-shrink: 0;
+}
+
+.schedule-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.schedule-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+}/* CSS Document */
+

@@ -1,0 +1,252 @@
+@charset "utf-8";
+/* CSS Document */
+/* ================================
+   community.css
+================================ */
+
+.comm-layout {
+    display: flex;
+    gap: 28px;
+    padding: 40px 0;
+    align-items: flex-start;
+}
+
+.comm-main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 发帖框 */
+.new-post {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    margin-bottom: 4px;
+}
+
+.new-post-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: rgba(255,255,255,0.4);
+}
+
+.new-post-input {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.35);
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: 0.2s;
+}
+
+.new-post-input:hover {
+    background: rgba(255,255,255,0.09);
+}
+
+/* 帖子列表 */
+.post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post-card {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    transition: transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+	cursor:pointer;
+}
+
+.post-card:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: inherit;
+}
+
+.post-left {
+    width: 54px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.1);
+}
+
+.post-votes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+}
+
+.post-votes span {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+}
+
+.post-votes i {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.post-votes i:hover { color: #ff4fa3; }
+
+.post-body {
+    flex: 1;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.post-author {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 600;
+}
+
+.post-time {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+}
+
+.post-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.post-title:hover { color: #ff4fa3; }
+
+.post-preview {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-footer {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 4px;
+}
+
+.post-footer span {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s;
+}
+
+.post-footer span:hover { color: #ff4fa3; }
+
+/* 右侧边栏 */
+.comm-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sidebar-card {
+    padding: 20px;
+}
+
+.sidebar-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar-title i { color: #ff4fa3; }
+
+.hot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hot-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.hot-item:hover { color: #fff; }
+
+.hot-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ff4fa3;
+    width: 16px;
+    flex-shrink: 0;
+}
+
+.topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.topic-chip {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: 0.2s;
+    color: rgba(255,255,255,0.6);
+}
+
+.topic-chip:hover {
+    background: rgba(255,79,163,0.2);
+    border-color: rgba(255,79,163,0.4);
+    color: #fff;
+}
+
+.sidebar-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+}
