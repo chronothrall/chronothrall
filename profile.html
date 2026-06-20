@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人空间 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <nav class="nav">
+        <a href="world.html">首页</a>
+        <a href="anime.html">动画</a>
+        <a href="manga.html">漫画</a>
+        <a href="game.html">游戏</a>
+        <a href="news.html">新闻</a>
+        <a href="museum.html">博物馆</a>
+        <a href="community.html">社区</a>
+      </nav>
+      <div class="search">
+        <i class="fa-solid fa-search"></i>
+        <input type="text" placeholder="搜索...">
+      </div>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <!-- 个人主页 Hero -->
+  <div class="profile-hero" id="profile-hero">
+    <div class="profile-hero-bg" id="profile-hero-bg"></div>
+    <div class="inner">
+      <div class="profile-header">
+        <div class="profile-avatar-big" id="profile-avatar-big">?</div>
+        <div class="profile-header-info">
+          <h1 class="profile-name" id="profile-name">加载中...</h1>
+          <p class="profile-bio" id="profile-bio">这个人很懒，什么都没写…</p>
+          <div class="profile-meta-row">
+            <span id="profile-joined"><i class="fa-regular fa-calendar"></i> 加入于 —</span>
+            <span id="profile-fav-count"><i class="fa-solid fa-bookmark"></i> 0 个收藏</span>
+            <span id="profile-post-count"><i class="fa-solid fa-comment-dots"></i> 0 篇帖子</span>
+          </div>
+        </div>
+        <button class="btn-ghost" onclick="openSettings()" style="flex-shrink:0">
+          <i class="fa-solid fa-gear"></i> 编辑资料
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 切换 -->
+  <div class="profile-tabs-wrap">
+    <div class="inner">
+      <div class="profile-tabs">
+        <button class="ptab active" onclick="showTab('favorites')" id="ptab-favorites"><i class="fa-solid fa-bookmark"></i> 我的收藏</button>
+        <button class="ptab" onclick="showTab('posts')" id="ptab-posts"><i class="fa-solid fa-comment-dots"></i> 我的帖子</button>
+        <button class="ptab" onclick="showTab('settings')" id="ptab-settings"><i class="fa-solid fa-gear"></i> 个性化设置</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner">
+    <div class="profile-body">
+
+      <!-- 收藏 Tab -->
+      <div class="tab-panel" id="panel-favorites">
+        <div class="section-title" style="margin:28px 0 20px"><i class="fa-solid fa-bookmark"></i> 我的收藏</div>
+        <div class="fav-filter" style="margin-bottom:20px">
+          <span class="filter-chip active" onclick="filterFavs('all',this)">全部</span>
+          <span class="filter-chip" onclick="filterFavs('anime',this)">动画</span>
+          <span class="filter-chip" onclick="filterFavs('manga',this)">漫画</span>
+          <span class="filter-chip" onclick="filterFavs('game',this)">游戏</span>
+        </div>
+        <div class="fav-grid" id="fav-grid">
+          <!-- JS 渲染 -->
+        </div>
+        <div class="empty-state" id="fav-empty" style="display:none">
+          <i class="fa-solid fa-bookmark"></i>
+          <p>还没有收藏任何作品</p>
+          <a href="anime.html" class="btn-pink">去逛逛</a>
+        </div>
+      </div>
+
+      <!-- 帖子 Tab -->
+      <div class="tab-panel hidden" id="panel-posts">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 0 20px">
+          <div class="section-title" style="margin:0"><i class="fa-solid fa-comment-dots"></i> 我的帖子</div>
+          <a href="post.html" class="btn-pink"><i class="fa-solid fa-plus"></i> 发新帖</a>
+        </div>
+        <div class="my-posts-list" id="my-posts-list"></div>
+        <div class="empty-state" id="posts-empty" style="display:none">
+          <i class="fa-solid fa-comment-dots"></i>
+          <p>还没有发过帖子</p>
+          <a href="post.html" class="btn-pink">发第一帖</a>
+        </div>
+      </div>
+
+      <!-- 设置 Tab -->
+      <div class="tab-panel hidden" id="panel-settings">
+        <div class="section-title" style="margin:28px 0 24px"><i class="fa-solid fa-gear"></i> 个性化设置</div>
+
+        <div class="settings-card glass-card">
+          <div class="settings-section-label">基本信息</div>
+
+          <div class="settings-row">
+            <div class="settings-label">用户名</div>
+            <div class="settings-value">
+              <input class="settings-input" id="set-name" placeholder="你的用户名">
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-label">个人简介</div>
+            <div class="settings-value">
+              <textarea class="settings-input settings-textarea" id="set-bio" placeholder="介绍一下自己…"></textarea>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-label">头像颜色</div>
+            <div class="settings-value avatar-colors" id="avatar-colors">
+              <div class="avatar-color-opt" data-color="#ff4fa3,#a04fff" style="background:linear-gradient(135deg,#ff4fa3,#a04fff)" onclick="pickColor(this)"></div>
+              <div class="avatar-color-opt" data-color="#4fa3ff,#4fffa0" style="background:linear-gradient(135deg,#4fa3ff,#4fffa0)" onclick="pickColor(this)"></div>
+              <div class="avatar-color-opt" data-color="#ff8c4f,#ffcd4f" style="background:linear-gradient(135deg,#ff8c4f,#ffcd4f)" onclick="pickColor(this)"></div>
+              <div class="avatar-color-opt" data-color="#4fffd4,#4fa3ff" style="background:linear-gradient(135deg,#4fffd4,#4fa3ff)" onclick="pickColor(this)"></div>
+              <div class="avatar-color-opt" data-color="#ff4f4f,#ff8c4f" style="background:linear-gradient(135deg,#ff4f4f,#ff8c4f)" onclick="pickColor(this)"></div>
+            </div>
+          </div>
+
+          <div class="settings-section-label" style="margin-top:24px">主页背景</div>
+
+          <div class="settings-row">
+            <div class="settings-label">背景主题</div>
+            <div class="settings-value bg-opts" id="bg-opts">
+              <div class="bg-opt active" data-bg="default" onclick="pickBg(this)" style="background:rgba(255,79,163,0.2);border-color:#ff4fa3">默认</div>
+              <div class="bg-opt" data-bg="cyber" onclick="pickBg(this)" style="background:linear-gradient(135deg,#0d1a2e,#1a0d2e)">赛博</div>
+              <div class="bg-opt" data-bg="forest" onclick="pickBg(this)" style="background:linear-gradient(135deg,#0d2e1a,#1a2e0d)">森林</div>
+              <div class="bg-opt" data-bg="sakura" onclick="pickBg(this)" style="background:linear-gradient(135deg,#2e0d1a,#2e1a0d)">樱花</div>
+            </div>
+          </div>
+
+          <div class="settings-section-label" style="margin-top:24px">展示偏好</div>
+
+          <div class="settings-row">
+            <div class="settings-label">公开收藏</div>
+            <div class="settings-value">
+              <label class="toggle-switch">
+                <input type="checkbox" id="set-public-fav" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-label">接受私信</div>
+            <div class="settings-value">
+              <label class="toggle-switch">
+                <input type="checkbox" id="set-dm" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-top:24px">
+            <button class="btn-pink" onclick="saveSettings()">保存设置</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus</div></footer>
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+// ── 初始化个人页 ──
+document.addEventListener('DOMContentLoaded', () => {
+  if (!Auth.isLoggedIn()) { location.href = 'login.html?back=profile.html'; return; }
+
+  const user = Auth.getUser();
+  const initial = (user.name || '?')[0].toUpperCase();
+
+  document.getElementById('profile-avatar-big').textContent = initial;
+  document.getElementById('profile-name').textContent = user.name;
+  document.getElementById('profile-bio').textContent = user.bio || '这个人很懒，什么都没写…';
+  document.getElementById('profile-joined').innerHTML = `<i class="fa-regular fa-calendar"></i> 加入于 ${user.joined || '今天'}`;
+
+  // 设置输入框初始值
+  document.getElementById('set-name').value = user.name || '';
+  document.getElementById('set-bio').value = user.bio || '';
+
+  // 应用头像颜色
+  const color = user.avatarColor || '#ff4fa3,#a04fff';
+  applyAvatarColor(color);
+
+  // 渲染统计
+  renderStats();
+
+  // 读取 hash 跳转 tab
+  const hash = location.hash.replace('#','');
+  if (hash === 'posts') showTab('posts');
+  else if (hash === 'settings') showTab('settings');
+  else showTab('favorites');
+
+  // 应用背景
+  applyBg(user.heroBg || 'default');
+  const activeBgOpt = document.querySelector(`[data-bg="${user.heroBg||'default'}"]`);
+  if (activeBgOpt) { document.querySelectorAll('.bg-opt').forEach(o=>o.classList.remove('active')); activeBgOpt.classList.add('active'); }
+
+  // 应用头像颜色选中
+  const activeColorOpt = document.querySelector(`[data-color="${CSS.escape(color)}"]`);
+  // 通过对比设置
+  document.querySelectorAll('.avatar-color-opt').forEach(o => {
+    o.classList.toggle('selected', o.dataset.color === color);
+  });
+});
+
+function renderStats() {
+  const favs = Favorites.getAll();
+  const posts = Posts.getAll().filter(p => p.author === Auth.getUser().name);
+  document.getElementById('profile-fav-count').innerHTML = `<i class="fa-solid fa-bookmark"></i> ${favs.length} 个收藏`;
+  document.getElementById('profile-post-count').innerHTML = `<i class="fa-solid fa-comment-dots"></i> ${posts.length} 篇帖子`;
+}
+
+// ── Tab 切换 ──
+function showTab(tab) {
+  ['favorites','posts','settings'].forEach(t => {
+    document.getElementById('panel-'+t).classList.toggle('hidden', t !== tab);
+    document.getElementById('ptab-'+t).classList.toggle('active', t === tab);
+  });
+  location.hash = tab;
+  if (tab === 'favorites') renderFavs('all');
+  if (tab === 'posts') renderMyPosts();
+}
+
+// ── 收藏渲染 ──
+function renderFavs(type) {
+  const grid = document.getElementById('fav-grid');
+  const empty = document.getElementById('fav-empty');
+  let items = Favorites.getAll();
+  if (type !== 'all') items = items.filter(f => f.type === type);
+
+  if (items.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'flex';
+    return;
+  }
+  empty.style.display = 'none';
+
+  const typeIcon = { anime: 'fa-tv', manga: 'fa-book-open', game: 'fa-gamepad' };
+  const typeLabel = { anime: '动画', manga: '漫画', game: '游戏' };
+
+  grid.innerHTML = items.map(f => `
+    <div class="fav-card glass-card">
+      <div class="fav-card-icon"><i class="fa-solid ${typeIcon[f.type]||'fa-star'}"></i></div>
+      <div class="fav-card-body">
+        <div class="fav-card-tag"><span class="tag ${f.type}">${typeLabel[f.type]||'其他'}</span></div>
+        <div class="fav-card-title">${f.title}</div>
+        <div class="fav-card-time">${new Date(f.savedAt).toLocaleDateString('zh-CN')}</div>
+      </div>
+      <button class="fav-remove" onclick="removeFav('${f.id}')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  `).join('');
+}
+
+function filterFavs(type, el) {
+  document.querySelectorAll('.fav-filter .filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderFavs(type);
+}
+
+function removeFav(id) {
+  const favs = Favorites.getAll();
+  const item = favs.find(f => f.id === id);
+  if (item) { Favorites.toggle(item); renderFavs('all'); renderStats(); }
+}
+
+// ── 帖子渲染 ──
+function renderMyPosts() {
+  const list = document.getElementById('my-posts-list');
+  const empty = document.getElementById('posts-empty');
+  const user = Auth.getUser();
+  const posts = Posts.getAll().filter(p => p.author === user.name);
+
+  if (posts.length === 0) {
+    list.innerHTML = '';
+    empty.style.display = 'flex';
+    return;
+  }
+  empty.style.display = 'none';
+
+  list.innerHTML = posts.map(p => `
+    <div class="my-post-card glass-card" onclick="location.href='post-detail.html?id=${p.id}'">
+      <div class="my-post-tag"><span class="tag ${p.type||'anime'}">${{anime:'动画',manga:'漫画',game:'游戏',news:'情报'}[p.type]||'动画'}</span></div>
+      <h3 class="my-post-title">${p.title}</h3>
+      <p class="my-post-preview">${(p.content||'').slice(0,80)}${p.content&&p.content.length>80?'…':''}</p>
+      <div class="my-post-meta">
+        <span><i class="fa-solid fa-clock"></i> ${p.time}</span>
+        <span><i class="fa-solid fa-heart"></i> ${p.votes}</span>
+        <span><i class="fa-solid fa-comment"></i> ${p.comments}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── 设置 ──
+let selectedColor = '#ff4fa3,#a04fff';
+let selectedBg = 'default';
+
+function pickColor(el) {
+  document.querySelectorAll('.avatar-color-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedColor = el.dataset.color;
+  applyAvatarColor(selectedColor);
+}
+
+function applyAvatarColor(color) {
+  const parts = color.split(',');
+  const grad = `linear-gradient(135deg, ${parts[0]}, ${parts[1]||parts[0]})`;
+  document.getElementById('profile-avatar-big').style.background = grad;
+  const small = document.querySelector('.nav-avatar');
+  if (small) small.style.background = grad;
+}
+
+function pickBg(el) {
+  document.querySelectorAll('.bg-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  selectedBg = el.dataset.bg;
+  applyBg(selectedBg);
+}
+
+const bgMap = {
+  default: '',
+  cyber: 'linear-gradient(135deg, rgba(13,26,46,0.8), rgba(26,13,46,0.8))',
+  forest: 'linear-gradient(135deg, rgba(13,46,26,0.8), rgba(26,46,13,0.8))',
+  sakura: 'linear-gradient(135deg, rgba(46,13,26,0.8), rgba(46,26,13,0.8))'
+};
+
+function applyBg(bg) {
+  const el = document.getElementById('profile-hero-bg');
+  el.style.background = bgMap[bg] || '';
+}
+
+function saveSettings() {
+  const user = Auth.getUser();
+  user.name = document.getElementById('set-name').value.trim() || user.name;
+  user.bio = document.getElementById('set-bio').value.trim();
+  user.avatarColor = selectedColor;
+  user.heroBg = selectedBg;
+  try { localStorage.setItem('anUser', JSON.stringify(user)); } catch {}
+
+  document.getElementById('profile-name').textContent = user.name;
+  document.getElementById('profile-bio').textContent = user.bio || '这个人很懒，什么都没写…';
+  applyAvatarColor(selectedColor);
+  renderNavUser();
+  showToast('✓ 设置已保存');
+}
+
+function openSettings() { showTab('settings'); }
+</script>
+</body>
+</html>

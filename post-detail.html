@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>帖子详情 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/post-detail.css">
+</head>
+<body>
+<div class="app">
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <nav class="nav">
+        <a href="world.html">首页</a><a href="anime.html">动画</a><a href="manga.html">漫画</a>
+        <a href="game.html">游戏</a><a href="news.html">新闻</a><a href="museum.html">博物馆</a>
+        <a href="community.html" class="active">社区</a>
+      </nav>
+      <div class="search"><i class="fa-solid fa-search"></i><input type="text" placeholder="搜索..."></div>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <div class="inner">
+    <div class="detail-layout">
+      <div class="detail-main">
+        <div class="breadcrumb" style="padding:24px 0 0">
+          <a href="world.html">首页</a><span>/</span><a href="community.html">社区</a><span>/</span><span id="bc-title">帖子详情</span>
+        </div>
+        <div class="post-detail-card glass-card" id="post-card"></div>
+        <div class="comments-section">
+          <div class="section-title" style="margin-bottom:20px">
+            <i class="fa-solid fa-comments"></i> 评论 <span id="comment-count" style="font-size:14px;color:rgba(255,255,255,0.4);font-weight:400"></span>
+          </div>
+          <div class="comment-input-wrap glass-card">
+            <div class="comment-avatar" id="cmt-avatar">?</div>
+            <div class="comment-input-body">
+              <textarea class="comment-textarea" id="cmt-text" placeholder="写下你的评论…"></textarea>
+              <div class="comment-input-actions">
+                <span class="comment-tip">友善讨论，理性表达</span>
+                <button class="btn-pink" onclick="submitComment()" style="padding:7px 20px;font-size:13px">发布评论</button>
+              </div>
+            </div>
+          </div>
+          <div class="comment-list" id="comment-list"></div>
+        </div>
+      </div>
+      <aside class="detail-sidebar">
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-user"></i> 楼主</div>
+          <div class="author-info">
+            <div class="author-avatar" id="author-avatar">?</div>
+            <div><div class="author-name" id="author-name">—</div><div class="author-sub">Anime Nexus 成员</div></div>
+          </div>
+        </div>
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-fire"></i> 相关热帖</div>
+          <div class="related-list">
+            <a href="post-detail.html?demo=1" class="related-item">《进击的巨人》结局你满意吗？</a>
+            <a href="post-detail.html?demo=2" class="related-item">《剑风传奇》最新话解析！</a>
+            <a href="post-detail.html?demo=3" class="related-item">二次元游戏必玩TOP10</a>
+            <a href="post-detail.html?demo=4" class="related-item">《芙莉莲》为何让人哭出来？</a>
+          </div>
+        </div>
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-pen-to-square"></i> 参与创作</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:14px">有话想说？写下你的帖子，与同好分享。</p>
+          <a href="post.html" class="btn-pink" style="display:block;text-align:center">发新帖</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus</div></footer>
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+const DEMO_POSTS = {
+  '1':{ id:'1',title:'《进击的巨人》结局你满意吗？',type:'anime',typeLabel:'动画',author:'Ace_V2',time:'2小时前',votes:1243,comments:342,htmlContent:'<p>艾伦的"地鸣"最终带来了什么？作为一部追踪了十年的漫画/动画，结局对我来说是震撼而悲伤的。</p><p>谏山创通过艾伦的选择，将整个故事升华为一个关于"自由代价"的哲学命题——当你得到了绝对的自由，却发现自由本身就是枷锁。</p><p>你们怎么看这个结局？满意or不满意？</p>',tags:['进击的巨人','完结','讨论']},
+  '2':{ id:'2',title:'《剑风传奇》最新话解析！',type:'manga',typeLabel:'漫画',author:'BerserkFan',time:'5小时前',votes:980,comments:210,htmlContent:'<p>格斯的命运是否已经注定？随着继承连载的推进，森田真二的画风越来越接近三浦老师晚期的笔触。</p><p>最新话中对"蚀"的描写让人窒息，黑暗幻想的氛围依然在线。</p>',tags:['剑风传奇','三浦建太郎']},
+  '3':{ id:'3',title:'你最喜欢的二次元游戏TOP10',type:'game',typeLabel:'游戏',author:'GameOtaku',time:'1天前',votes:2341,comments:512,htmlContent:'<p>整理了一份个人认为最值得玩的游戏：</p><p><strong>1. 女神异闻录5 Royal</strong> — 近乎完美的JRPG<br><strong>2. 空洞骑士</strong> — 独立游戏标杆<br><strong>3. 艾尔登法环</strong> — 年度最佳<br><strong>4. 原神</strong> — 剧情比你想象得好<br><strong>5. 塞尔达：旷野之息</strong> — 开放世界教科书</p>',tags:['游戏','安利','TOP10']},
+  '4':{ id:'4',title:'《葬送的芙莉莲》为何让人哭出来？',type:'anime',typeLabel:'动画',author:'FrierenLover',time:'2天前',votes:764,comments:198,htmlContent:'<p>第一话希梅尔的去世，不是反转，不是催泪BGM，就那么平静地结束了七十年旅程。</p><p>芙莉莲才意识到她"错过"的不是冒险本身，而是与人相处的每一个普通瞬间。这种"轻描淡写"反而是最沉的重量。</p>',tags:['葬送的芙莉莲','催泪','讨论']}
+};
+const DEFAULT_COMMENTS = {
+  '1':[{id:'c1',author:'Mikasa_Fan',time:'1小时前',text:'艾伦的结局真的太悲壮了，看完久久无法平静。',votes:234},{id:'c2',author:'RivaiLevi',time:'2小时前',text:'谏山创用十年时间讲了一个关于"选择"的故事。不管满不满意，这部作品是不可复制的。',votes:189}],
+  '2':[{id:'c1',author:'GriffithFan',time:'3小时前',text:'三浦老师走后格老师的画风传承得很好，感谢团队坚持。',votes:145}],
+  '3':[{id:'c1',author:'SoloPlayer',time:'12小时前',text:'空洞骑士真的封神，Boss战设计太完美了。',votes:312},{id:'c2',author:'GachaAddict',time:'1天前',text:'原神剧情确实在版本3.x后质量上来了很多。',votes:98}],
+  '4':[{id:'c1',author:'SlowLife_Fan',time:'1天前',text:'第二话芙莉莲独自站在飘花树下等了五十年，那一幕我哭了。',votes:421},{id:'c2',author:'EinskaFan',time:'2天前',text:'这部动画的"时间感"处理是近年来最好的，没有之一。',votes:287}]
+};
+
+let curPost = null, liked = false, cmtList = [];
+
+window.addEventListener('DOMContentLoaded', () => {
+  const p = new URLSearchParams(location.search);
+  const id = p.get('id'), demo = p.get('demo');
+  curPost = (id && Posts.get(id)) || DEMO_POSTS[demo] || DEMO_POSTS['1'];
+  renderPost();
+  loadComments();
+  const user = Auth.getUser();
+  document.getElementById('cmt-avatar').textContent = Auth.isLoggedIn() ? (user.name||'?')[0].toUpperCase() : '?';
+});
+
+function renderPost() {
+  const p = curPost;
+  document.title = p.title + ' — Anime Nexus';
+  document.getElementById('bc-title').textContent = p.title.slice(0,20)+(p.title.length>20?'…':'');
+  document.getElementById('author-name').textContent = p.author||'匿名';
+  document.getElementById('author-avatar').textContent = (p.author||'?')[0].toUpperCase();
+  const tagsHtml = (p.tags||[]).map(t=>`<span class="pd-tag"># ${t}</span>`).join('');
+  const html = p.htmlContent || `<p>${(p.content||'').replace(/\n/g,'</p><p>')}</p>`;
+  document.getElementById('post-card').innerHTML = `
+    <div class="pd-header">
+      <div class="pd-meta-top"><span class="tag ${p.type||'anime'}">${p.typeLabel||'动画'}</span><span class="pd-time">${p.time||'刚刚'}</span></div>
+      <h1 class="pd-title">${p.title}</h1>
+      <div class="pd-author-row">
+        <div class="pd-avatar">${(p.author||'?')[0].toUpperCase()}</div>
+        <div><div class="pd-author-name">${p.author||'匿名'}</div><div class="pd-author-sub">Anime Nexus 成员</div></div>
+      </div>
+    </div>
+    <div class="pd-divider"></div>
+    <div class="pd-content">${html}</div>
+    ${tagsHtml?`<div class="pd-tags">${tagsHtml}</div>`:''}
+    <div class="pd-divider"></div>
+    <div class="pd-actions">
+      <button class="pd-action-btn" id="like-btn" onclick="toggleLike()"><i class="fa-solid fa-heart"></i> <span id="like-count">${p.votes||0}</span></button>
+      <button class="pd-action-btn" onclick="document.getElementById('cmt-text').focus()"><i class="fa-solid fa-comment"></i> ${p.comments||0} 评论</button>
+      <button class="pd-action-btn" onclick="sharePost()"><i class="fa-solid fa-share"></i> 分享</button>
+      <button class="pd-action-btn" onclick="bookmarkPost()"><i class="fa-solid fa-bookmark"></i> 收藏</button>
+    </div>`;
+}
+
+function toggleLike(){if(!Auth.isLoggedIn()){showToast('请先登录');return;}liked=!liked;document.getElementById('like-btn').classList.toggle('liked',liked);const c=document.getElementById('like-count');c.textContent=parseInt(c.textContent)+(liked?1:-1);}
+function sharePost(){if(navigator.clipboard)navigator.clipboard.writeText(location.href);showToast('链接已复制');}
+function bookmarkPost(){if(!Auth.isLoggedIn()){showToast('请先登录');return;}showToast('✓ 帖子已收藏');}
+
+function loadComments(){
+  const id=curPost?.id||'1';
+  const stored=Store.get('anCmts_'+id,[]);
+  const defaults=DEFAULT_COMMENTS[id]||[];
+  cmtList=[...stored,...defaults];
+  renderComments();
+}
+
+function renderComments(){
+  document.getElementById('comment-count').textContent='('+cmtList.length+')';
+  document.getElementById('comment-list').innerHTML=cmtList.map(c=>`
+    <div class="comment-item glass-card">
+      <div class="comment-avatar-sm">${(c.author||'?')[0].toUpperCase()}</div>
+      <div class="comment-body">
+        <div class="comment-header"><span class="comment-author">${c.author}</span><span class="comment-time">${c.time}</span></div>
+        <p class="comment-text">${c.text}</p>
+        <div class="comment-actions">
+          <span class="${c._liked?'comment-liked':''}" onclick="likeComment('${c.id}',this)"><i class="fa-solid fa-heart"></i> ${c.votes}</span>
+          <span><i class="fa-solid fa-reply"></i> 回复</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function likeComment(id,el){if(!Auth.isLoggedIn()){showToast('请先登录');return;}const c=cmtList.find(x=>x.id===id);if(c){c._liked=!c._liked;c.votes+=c._liked?1:-1;renderComments();}}
+
+function submitComment(){
+  if(!Auth.isLoggedIn()){showToast('请先登录后评论');setTimeout(()=>location.href='login.html',1200);return;}
+  const text=document.getElementById('cmt-text').value.trim();
+  if(!text){showToast('请输入评论内容');return;}
+  const nc={id:'cu'+Date.now(),author:Auth.getUser().name,time:'刚刚',text,votes:0};
+  const id=curPost?.id||'1';
+  const stored=Store.get('anCmts_'+id,[]);
+  stored.unshift(nc);Store.set('anCmts_'+id,stored);
+  cmtList=[nc,...cmtList];renderComments();
+  document.getElementById('cmt-text').value='';showToast('✓ 评论发布成功');
+}
+</script>
+</body>
+</html>

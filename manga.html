@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漫画 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/anime.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <nav class="nav">
+        <a href="world.html">首页</a>
+        <a href="anime.html">动画</a>
+        <a href="manga.html" class="active">漫画</a>
+        <a href="game.html">游戏</a>
+        <a href="news.html">新闻</a>
+        <a href="museum.html">博物馆</a>
+        <a href="community.html">社区</a>
+      </nav>
+      <div class="search">
+        <i class="fa-solid fa-search"></i>
+        <input type="text" id="main-search" placeholder="搜索漫画、作者、出版社...">
+      </div>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="inner">
+      <div class="breadcrumb"><a href="world.html">首页</a><span>/</span><span>漫画</span></div>
+      <h1><i class="fa-solid fa-book-open"></i> 漫画数据库</h1>
+      <p>综合 Bangumi · 豆瓣 · MAL 三平台评分 · 收录 98,321 部作品</p>
+    </div>
+  </div>
+
+  <div class="inner">
+    <div class="page-section" style="padding-bottom:0">
+      <div class="filter-bar">
+        <span class="filter-label">类型</span>
+        <span class="filter-chip active" data-filter="type" data-val="all">全部</span>
+        <span class="filter-chip" data-filter="type" data-val="少年漫">少年漫</span>
+        <span class="filter-chip" data-filter="type" data-val="青年漫">青年漫</span>
+        <span class="filter-chip" data-filter="type" data-val="少女漫">少女漫</span>
+        <span class="filter-chip" data-filter="type" data-val="轻小说">轻小说</span>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">状态</span>
+        <span class="filter-chip active" data-filter="status" data-val="all">全部</span>
+        <span class="filter-chip" data-filter="status" data-val="连载中">连载中</span>
+        <span class="filter-chip" data-filter="status" data-val="已完结">已完结</span>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">排序</span>
+        <span class="filter-chip active" data-filter="sort" data-val="score">综合评分</span>
+        <span class="filter-chip" data-filter="sort" data-val="newest">最新更新</span>
+        <span class="filter-chip" data-filter="sort" data-val="fav">最多收藏</span>
+      </div>
+    </div>
+
+    <div class="page-section">
+      <div class="list-header">
+        <div class="section-title"><i class="fa-solid fa-list"></i> 漫画列表</div>
+        <span class="result-count" id="result-count">共 98,321 部</span>
+      </div>
+
+      <div id="no-result" style="display:none;text-align:center;padding:60px 0;color:rgba(255,255,255,0.3)">
+        <i class="fa-solid fa-magnifying-glass" style="font-size:40px;margin-bottom:16px;display:block"></i>
+        <p>没有找到相关漫画，换个关键词试试</p>
+      </div>
+
+      <div class="anime-list" id="manga-list"></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus · 综合 Bangumi · 豆瓣 · MAL 评分数据</div></footer>
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+const MANGA_DATA = [
+  { id:'berserk',      rank:1, title:'剑风传奇',      jp:'Berserk',                        type:'青年漫', status:'连载中',  year:'1997–',     author:'三浦建太郎', publisher:'白泉社',  volumes:41,  fav:89200,
+    scores:{ bangumi:9.8, douban:9.7, mal:9.4 }, avg:9.6, desc:'格斯与剑，黑色幻想中最沉重的史诗，三十年未完成的传说。', cover:'images/berserk.png' },
+  { id:'hxh',          rank:2, title:'全职猎人',      jp:'Hunter×Hunter',                   type:'少年漫', status:'连载中',  year:'1998–',     author:'富坚义博',   publisher:'集英社',  volumes:37,  fav:74300,
+    scores:{ bangumi:9.7, douban:9.5, mal:9.0 }, avg:9.4, desc:'少年小杰踏上成为猎人之路，念能力系统构筑了漫画史最精密的世界观。', cover:'images/hunter.png' },
+  { id:'aot-manga',    rank:3, title:'进击的巨人',    jp:'Attack on Titan',                 type:'青年漫', status:'已完结', year:'2009–2021', author:'谏山创',     publisher:'讲谈社',  volumes:34,  fav:68900,
+    scores:{ bangumi:9.5, douban:9.3, mal:8.5 }, avg:9.1, desc:'原作漫画以震撼的世界观与反转叙事成为21世纪少年漫代表作之一。', cover:'images/aot (2).png' },
+  { id:'frieren-manga',rank:4, title:'葬送的芙莉莲',  jp:"Frieren: Beyond Journey's End",  type:'青年漫', status:'连载中',  year:'2020–',     author:'山田钟人/阿部司', publisher:'小学馆', volumes:13, fav:55400,
+    scores:{ bangumi:9.4, douban:9.2, mal:8.9 }, avg:9.2, desc:'原作漫画以简洁笔触刻画了千年魔法师对人类情感的缓慢理解。', cover:'images/fll (2).png' },
+  { id:'one-piece',    rank:5, title:'海贼王',        jp:'One Piece',                       type:'少年漫', status:'连载中',  year:'1997–',     author:'尾田荣一郎', publisher:'集英社',  volumes:110, fav:92000,
+    scores:{ bangumi:9.3, douban:9.2, mal:9.0 }, avg:9.2, desc:'路飞与伙伴们踏上大海，寻找传说中的One Piece，世界最长的热血冒险史诗。', cover:'images/onepiece.png' },
+  { id:'vagabond',     rank:6, title:'浪客行',        jp:'Vagabond',                        type:'青年漫', status:'连载中',  year:'1998–',     author:'井上雄彦',   publisher:'讲谈社',  volumes:37,  fav:41200,
+    scores:{ bangumi:9.6, douban:9.5, mal:9.1 }, avg:9.4, desc:'宫本武藏在剑道上追求强者之道，井上雄彦的画工将历史与哲学融为一体。', cover:'images/vagabond.png' },
+  { id:'jjk-manga',   rank:7, title:'咒术回战',       jp:'Jujutsu Kaisen',                  type:'少年漫', status:'已完结', year:'2018–2024', author:'芥见下下',   publisher:'集英社',  volumes:27,  fav:60100,
+    scores:{ bangumi:9.0, douban:8.9, mal:8.5 }, avg:8.8, desc:'原作漫画节奏紧凑，战斗设计精良，以独特世界观颠覆传统少年漫公式。', cover:'images/jjk-manga.png' },
+  { id:'20thboys',     rank:8, title:'20世纪少年',    jp:'20th Century Boys',               type:'青年漫', status:'已完结', year:'1999–2006', author:'浦泽直树',   publisher:'小学馆',  volumes:22,  fav:38700,
+    scores:{ bangumi:9.4, douban:9.4, mal:8.8 }, avg:9.2, desc:'悬疑与回忆交织的宏大叙事，浦泽直树最具野心的作品，横跨数十年的阴谋与友情。', cover:'images/20thboys.png' },
+];
+
+const PAGE_SIZE = 6;
+let curPage = 1, filtered = [...MANGA_DATA];
+let activeFilters = { type:'all', status:'all', sort:'score' };
+let searchQuery = '';
+
+function applyFilters() {
+  let result = [...MANGA_DATA];
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    result = result.filter(m => m.title.toLowerCase().includes(q) || m.jp.toLowerCase().includes(q) || m.author.toLowerCase().includes(q));
+  }
+  if (activeFilters.type !== 'all')   result = result.filter(m => m.type === activeFilters.type);
+  if (activeFilters.status !== 'all') result = result.filter(m => m.status === activeFilters.status);
+  if (activeFilters.sort === 'score')  result.sort((a,b) => b.avg - a.avg);
+  if (activeFilters.sort === 'newest') result.sort((a,b) => b.year.localeCompare(a.year));
+  if (activeFilters.sort === 'fav')    result.sort((a,b) => b.fav - a.fav);
+  filtered = result; curPage = 1; render();
+}
+
+function render() {
+  const list = document.getElementById('manga-list');
+  const noRes = document.getElementById('no-result');
+  const countEl = document.getElementById('result-count');
+  if (!filtered.length) { list.innerHTML=''; noRes.style.display='block'; countEl.textContent='0 个结果'; document.getElementById('pagination').innerHTML=''; return; }
+  noRes.style.display = 'none';
+  const total = filtered.length, totalPages = Math.ceil(total/PAGE_SIZE);
+  const pageData = filtered.slice((curPage-1)*PAGE_SIZE, curPage*PAGE_SIZE);
+  countEl.textContent = searchQuery ? `找到 ${total} 部` : `共 ${total} 部`;
+  list.innerHTML = pageData.map((m, i) => {
+    const rank = (curPage-1)*PAGE_SIZE+i+1;
+    const coverStyle = m.cover ? `style="background-image:url('${m.cover}');background-size:cover;background-position:center;"` : `style="background:linear-gradient(135deg,rgba(160,79,255,0.15),rgba(255,79,163,0.1))"`;
+    return `
+    <div class="anime-row glass-card">
+      <div class="anime-rank">${rank}</div>
+      <div class="anime-cover" ${coverStyle}>${!m.cover?`<div class="cover-placeholder"><i class="fa-solid fa-book"></i></div>`:''}</div>
+      <div class="anime-info">
+        <div class="anime-tags"><span class="tag manga">${m.type}</span><span class="tag-plain">${m.year}</span><span class="tag-plain">${m.status}</span></div>
+        <h3 class="anime-title">${m.title} <span class="jp">${m.jp}</span></h3>
+        <p class="anime-desc">${m.desc}</p>
+        <div class="anime-meta">
+          <span><i class="fa-solid fa-pen-nib"></i> ${m.author}</span>
+          <span><i class="fa-solid fa-layer-group"></i> ${m.volumes}卷</span>
+          <span><i class="fa-solid fa-building"></i> ${m.publisher}</span>
+        </div>
+      </div>
+      <div class="anime-scores">
+        <div class="score-breakdown">
+          <div class="score-row"><span>Bangumi</span><strong>${m.scores.bangumi}</strong></div>
+          <div class="score-row"><span>豆瓣</span><strong>${m.scores.douban}</strong></div>
+          <div class="score-row"><span>MAL</span><strong>${m.scores.mal||'—'}</strong></div>
+        </div>
+        <div class="score-avg">${m.avg.toFixed(1)}</div>
+        <div class="score-label">综合评分</div>
+        <div class="anime-actions">
+          <a class="btn-pink" href="#" onclick="handleFav(event,'${m.id}','${m.title}','manga')">收藏</a>
+          <a class="btn-ghost" href="work-detail.html?id=${m.id}">详情</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+  const pg = document.getElementById('pagination');
+  if (totalPages <= 1) { pg.innerHTML=''; return; }
+  let html = '';
+  if (curPage > 1) html += `<span class="page-btn" onclick="goPage(${curPage-1})"><i class="fa-solid fa-chevron-left"></i></span>`;
+  getPaginRange(curPage, totalPages).forEach(p => {
+    if (p === '…') html += `<span class="page-dots">…</span>`;
+    else html += `<span class="page-btn${p===curPage?' active':''}" onclick="goPage(${p})">${p}</span>`;
+  });
+  if (curPage < totalPages) html += `<span class="page-btn" onclick="goPage(${curPage+1})"><i class="fa-solid fa-chevron-right"></i></span>`;
+  pg.innerHTML = html;
+}
+function getPaginRange(cur, total) {
+  if (total <= 7) return Array.from({length:total},(_,i)=>i+1);
+  const r=[1]; if(cur>3)r.push('…');
+  for(let i=Math.max(2,cur-1);i<=Math.min(total-1,cur+1);i++)r.push(i);
+  if(cur<total-2)r.push('…'); r.push(total); return r;
+}
+function goPage(p) { curPage=p; render(); window.scrollTo({top:300,behavior:'smooth'}); }
+function handleFav(e, id, title, type) {
+  e.preventDefault();
+  if (!Auth.isLoggedIn()) { showToast('请先登录后再收藏'); setTimeout(()=>location.href='login.html',1200); return; }
+  Favorites.toggle({ id, title, type });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const urlQ = new URLSearchParams(location.search).get('search');
+  if (urlQ) { searchQuery=urlQ; document.getElementById('main-search').value=urlQ; }
+  const searchInput = document.getElementById('main-search');
+  let timer;
+  searchInput.addEventListener('input', () => { clearTimeout(timer); timer=setTimeout(()=>{ searchQuery=searchInput.value.trim(); applyFilters(); },300); });
+  searchInput.addEventListener('keydown', e => { if(e.key==='Enter'){ searchQuery=searchInput.value.trim(); applyFilters(); } });
+  document.querySelectorAll('.filter-chip[data-filter]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll(`.filter-chip[data-filter="${chip.dataset.filter}"]`).forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilters[chip.dataset.filter] = chip.dataset.val;
+      applyFilters();
+    });
+  });
+  applyFilters();
+});
+</script>
+</body>
+</html>

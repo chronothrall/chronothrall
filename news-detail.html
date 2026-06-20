@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新闻详情 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/news-detail.css">
+</head>
+<body>
+<div class="app">
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <nav class="nav">
+        <a href="world.html">首页</a><a href="anime.html">动画</a><a href="manga.html">漫画</a>
+        <a href="game.html">游戏</a><a href="news.html" class="active">新闻</a><a href="museum.html">博物馆</a><a href="community.html">社区</a>
+      </nav>
+      <div class="search"><i class="fa-solid fa-search"></i><input type="text" placeholder="搜索..."></div>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <div class="inner">
+    <div class="nd-layout">
+      <div class="nd-main">
+        <div class="breadcrumb" style="padding:28px 0 0">
+          <a href="world.html">首页</a><span>/</span><a href="news.html">新闻</a><span>/</span><span id="nd-bc">新闻详情</span>
+        </div>
+
+        <article class="nd-article glass-card" id="nd-article">
+          <div style="padding:60px;text-align:center;color:rgba(255,255,255,0.3)">加载中…</div>
+        </article>
+
+        <!-- 相关帖子 -->
+        <div class="nd-discuss-cta glass-card">
+          <div class="cta-left">
+            <i class="fa-solid fa-comments"></i>
+            <div>
+              <div class="cta-title">有话想说？</div>
+              <div class="cta-sub">去社区讨论这条新闻，与同好交流</div>
+            </div>
+          </div>
+          <a href="post.html" class="btn-pink">发帖讨论</a>
+        </div>
+      </div>
+
+      <aside class="nd-sidebar">
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-bolt"></i> 今日快讯</div>
+          <div class="flash-list">
+            <div class="flash-item"><span class="flash-time">14:30</span><span>《咒术回战》漫画正式宣告完结</span></div>
+            <div class="flash-item"><span class="flash-time">11:20</span><span>Netflix 与集英社续签五年版权协议</span></div>
+            <div class="flash-item"><span class="flash-time">09:15</span><span>Aniplex 2025秋季发布会定档8月</span></div>
+            <div class="flash-item"><span class="flash-time">昨天</span><span>《进击的巨人》完结纪念展东京开幕</span></div>
+          </div>
+        </div>
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-newspaper"></i> 更多新闻</div>
+          <div class="more-news" id="more-news"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus</div></footer>
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+const NEWS_DATA = {
+  '1':{ id:'1', tag:'anime', tagLabel:'动画', time:'2025年6月19日', title:'《攻壳机动队》全新系列动画官宣：押井守监制，2025年秋季播出', content:`<p>Production I.G 今日正式公布，《攻壳机动队》（Ghost in the Shell）全新系列动画将于2025年秋季档播出。</p><p>据官方透露，押井守将担任总监制，导演一职由新生代创作者出任，故事设定在《攻壳机动队：SAC》宇宙线延续时间线之后，将引入全新主角与全新的哲学命题。</p><p>《攻壳机动队》自1995年剧场版以来，以其对"人类意识与机械身体"的深度探讨影响了全球科幻文化。新系列将延续这一核心命题，同时融入当代AI与数字身份的现实议题。</p><p>目前配音阵容与具体播出档期尚未公开，官方表示将于2025年8月的 Aniplex 发布会上进行详细公布。</p>` },
+  '2':{ id:'2', tag:'manga', tagLabel:'漫画', time:'2025年6月19日', title:'《葬送的芙莉莲》剧场版企划正式立项，原班人马回归', content:`<p>动画制作公司 Madhouse 官方宣布，《葬送的芙莉莲》剧场版已进入筹备阶段。</p><p>据消息，剧场版将延续TV版原班人马：导演斋藤圭一郎、音乐 Evan Call，以及全员声优阵容均将回归。预计将于2026年上映。</p><p>《葬送的芙莉莲》TV版于2023年播出后获得年度最高评价，在 Bangumi、豆瓣、MAL 三平台均取得极高分数。剧场版据称将改编漫画中尚未动画化的"大一统魔法试验"篇章。</p>` },
+  '3':{ id:'3', tag:'game', tagLabel:'游戏', time:'2025年6月18日', title:'艾尔登法环累计销量突破3000万，FromSoftware新作情报曝光', content:`<p>万代南梦宫官方今日公布，《艾尔登法环》全球累计销量已正式突破3000万份，成为 FromSoftware 有史以来最畅销的作品。</p><p>与此同时，FromSoftware 新作开发已确认进入制作阶段。据业界消息，宫崎英高将继续担任新作导演，故事将建立在全新的世界观之上，而非延续《艾尔登法环》宇宙。</p><p>FromSoftware 表示将在2025年年底前发布新作的正式公告。粉丝社区对此期待值极高。</p>` },
+  '4':{ id:'4', tag:'anime', tagLabel:'动画', time:'2025年6月17日', title:'《猎人》时隔两年再度宣布复刊，富坚义博新消息', content:`<p>集英社官网今日更新，《猎人×猎人》漫画将于下月正式恢复连载，富坚义博在最新访谈中表示身体状况已恢复良好。</p><p>《猎人×猎人》以其精密的念能力系统和深度叙事著称，但长期的休刊成为读者长久以来的心痛。此次复刊消息一出，瞬间登上日本各大社交平台热搜。</p><p>富坚义博表示："非常感谢等待的读者们。我会尽力完成留下的故事。"</p>` }
+};
+const MORE_LINKS = [ {id:'2',title:'《芙莉莲》剧场版企划立项'},{id:'3',title:'艾尔登法环销量破3000万'},{id:'4',title:'猎人×猎人确认复刊'},{id:'1',title:'攻壳机动队新系列官宣'} ];
+
+window.addEventListener('DOMContentLoaded', () => {
+  const p = new URLSearchParams(location.search);
+  const id = p.get('id') || '1';
+  const news = NEWS_DATA[id] || NEWS_DATA['1'];
+
+  document.title = news.title + ' — Anime Nexus';
+  document.getElementById('nd-bc').textContent = news.title.slice(0,18) + '…';
+
+  document.getElementById('nd-article').innerHTML = `
+    <div class="nd-art-header">
+      <div class="nd-art-meta"><span class="tag ${news.tag}">${news.tagLabel}</span><span class="nd-art-time">${news.time}</span></div>
+      <h1 class="nd-art-title">${news.title}</h1>
+      <div class="nd-art-byline"><i class="fa-solid fa-user-pen"></i> Anime Nexus 编辑部 &nbsp;·&nbsp; <i class="fa-solid fa-clock"></i> 3分钟阅读</div>
+    </div>
+    <div class="nd-art-img-placeholder"><i class="fa-solid fa-newspaper"></i></div>
+    <div class="nd-art-body">${news.content}</div>
+    <div class="nd-art-footer">
+      <button class="pd-action-btn" onclick="shareNews()"><i class="fa-solid fa-share"></i> 分享</button>
+      <button class="pd-action-btn" onclick="showToast('✓ 已加入阅读列表')"><i class="fa-solid fa-bookmark"></i> 收藏</button>
+    </div>`;
+
+  // more news
+  document.getElementById('more-news').innerHTML = MORE_LINKS.filter(n=>n.id!==id).slice(0,3).map(n=>`<a href="news-detail.html?id=${n.id}" class="related-item">${n.title}</a>`).join('');
+});
+
+function shareNews() { if(navigator.clipboard) navigator.clipboard.writeText(location.href); showToast('链接已复制'); }
+</script>
+</body>
+</html>

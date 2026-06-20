@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>发新帖 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/post.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <nav class="nav">
+        <a href="world.html">首页</a>
+        <a href="anime.html">动画</a>
+        <a href="manga.html">漫画</a>
+        <a href="game.html">游戏</a>
+        <a href="news.html">新闻</a>
+        <a href="museum.html">博物馆</a>
+        <a href="community.html" class="active">社区</a>
+      </nav>
+      <div class="search"><i class="fa-solid fa-search"></i><input type="text" placeholder="搜索..."></div>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="inner">
+      <div class="breadcrumb">
+        <a href="world.html">首页</a><span>/</span>
+        <a href="community.html">社区</a><span>/</span>
+        <span>发新帖</span>
+      </div>
+      <h1><i class="fa-solid fa-pen-to-square"></i> 发新帖</h1>
+      <p>分享你的想法、分析、安利或吐槽</p>
+    </div>
+  </div>
+
+  <div class="inner">
+    <div class="post-layout">
+
+      <!-- 编辑器主体 -->
+      <div class="post-editor">
+
+        <!-- 分类选择 -->
+        <div class="editor-section">
+          <div class="editor-label">选择分类 <span class="req">*</span></div>
+          <div class="cat-grid" id="cat-grid">
+            <div class="cat-chip selected" data-type="anime" onclick="selectCat(this)">
+              <i class="fa-solid fa-tv"></i> 动画
+            </div>
+            <div class="cat-chip" data-type="manga" onclick="selectCat(this)">
+              <i class="fa-solid fa-book-open"></i> 漫画
+            </div>
+            <div class="cat-chip" data-type="game" onclick="selectCat(this)">
+              <i class="fa-solid fa-gamepad"></i> 游戏
+            </div>
+            <div class="cat-chip" data-type="news" onclick="selectCat(this)">
+              <i class="fa-solid fa-bolt"></i> 情报
+            </div>
+            <div class="cat-chip" data-type="discuss" onclick="selectCat(this)">
+              <i class="fa-solid fa-comments"></i> 讨论
+            </div>
+            <div class="cat-chip" data-type="recommend" onclick="selectCat(this)">
+              <i class="fa-solid fa-star"></i> 安利
+            </div>
+          </div>
+        </div>
+
+        <!-- 标题 -->
+        <div class="editor-section">
+          <div class="editor-label">标题 <span class="req">*</span></div>
+          <input type="text" class="title-input" id="post-title" placeholder="一个好标题能让更多人看到你的帖子…" maxlength="80">
+          <div class="char-count" id="title-count">0 / 80</div>
+        </div>
+
+        <!-- 正文编辑器 -->
+        <div class="editor-section">
+          <div class="editor-label">正文 <span class="req">*</span></div>
+          <div class="toolbar">
+            <button class="tb-btn" title="粗体" onclick="fmt('bold')"><i class="fa-solid fa-bold"></i></button>
+            <button class="tb-btn" title="斜体" onclick="fmt('italic')"><i class="fa-solid fa-italic"></i></button>
+            <button class="tb-btn" title="引用" onclick="insertQuote()"><i class="fa-solid fa-quote-left"></i></button>
+            <div class="tb-sep"></div>
+            <button class="tb-btn" title="插入图片" onclick="document.getElementById('img-input').click()">
+              <i class="fa-solid fa-image"></i>
+            </button>
+            <button class="tb-btn" title="插入链接" onclick="insertLink()"><i class="fa-solid fa-link"></i></button>
+            <div class="tb-sep"></div>
+            <button class="tb-btn" title="剧透遮罩" onclick="insertSpoiler()"><i class="fa-solid fa-eye-slash"></i></button>
+          </div>
+          <div class="content-editor" id="post-content" contenteditable="true" data-placeholder="在这里写下你的内容…&#10;&#10;支持粗体、引用、图片插入。&#10;注意：请遵守社区规范，不传播未授权内容。"></div>
+          <input type="file" id="img-input" accept="image/*" style="display:none" onchange="insertImage(this)">
+        </div>
+
+        <!-- 图片预览区 -->
+        <div class="img-preview-area" id="img-preview-area"></div>
+
+        <!-- 标签 -->
+        <div class="editor-section">
+          <div class="editor-label">话题标签</div>
+          <div class="tag-input-wrap">
+            <input type="text" class="tag-input" id="tag-input" placeholder="输入标签后按 Enter（最多5个）">
+          </div>
+          <div class="tag-list" id="tag-list"></div>
+          <div class="tag-suggestions">
+            推荐：
+            <span onclick="addTagSuggestion('进击的巨人')"># 进击的巨人</span>
+            <span onclick="addTagSuggestion('葬送的芙莉莲')"># 葬送的芙莉莲</span>
+            <span onclick="addTagSuggestion('剑风传奇')"># 剑风传奇</span>
+            <span onclick="addTagSuggestion('2025新番')"># 2025新番</span>
+            <span onclick="addTagSuggestion('每日安利')"># 每日安利</span>
+          </div>
+        </div>
+
+        <!-- 发布 -->
+        <div class="editor-actions">
+          <a href="community.html" class="btn-ghost">取消</a>
+          <button class="btn-ghost" onclick="saveDraft()"><i class="fa-regular fa-floppy-disk"></i> 存草稿</button>
+          <button class="btn-pink" onclick="submitPost()"><i class="fa-solid fa-paper-plane"></i> 发布</button>
+        </div>
+
+      </div>
+
+      <!-- 右侧提示 -->
+      <aside class="post-sidebar">
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-circle-info"></i> 发帖规范</div>
+          <ul class="rule-list">
+            <li>标题清晰，避免标题党</li>
+            <li>剧透内容请使用遮罩功能</li>
+            <li>不传播未授权作品内容</li>
+            <li>尊重他人，保持友善讨论</li>
+            <li>图片建议上传自己截图或原创内容</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-fire"></i> 当前热门话题</div>
+          <div class="hot-list">
+            <div class="hot-item" onclick="addTagSuggestion('进击的巨人')"><span class="hot-num">1</span># 进击的巨人</div>
+            <div class="hot-item" onclick="addTagSuggestion('葬送的芙莉莲')"><span class="hot-num">2</span># 葬送的芙莉莲</div>
+            <div class="hot-item" onclick="addTagSuggestion('剑风传奇')"><span class="hot-num">3</span># 剑风传奇</div>
+            <div class="hot-item" onclick="addTagSuggestion('2025新番')"><span class="hot-num">4</span># 2025新番</div>
+          </div>
+        </div>
+
+        <!-- 预览 -->
+        <div class="sidebar-card glass-card" id="preview-card" style="display:none">
+          <div class="sidebar-title"><i class="fa-solid fa-eye"></i> 预览</div>
+          <div class="preview-title" id="preview-title"></div>
+          <div class="preview-content" id="preview-content"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus</div></footer>
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (!Auth.isLoggedIn()) { location.href = 'login.html?back=post.html'; return; }
+
+  // 标题字数
+  document.getElementById('post-title').addEventListener('input', function() {
+    document.getElementById('title-count').textContent = this.value.length + ' / 80';
+    updatePreview();
+  });
+
+  document.getElementById('post-content').addEventListener('input', updatePreview);
+
+  // 标签输入
+  document.getElementById('tag-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); addTag(e.target.value.trim()); e.target.value = ''; }
+  });
+});
+
+let selectedType = 'anime';
+const tags = [];
+
+function selectCat(el) {
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedType = el.dataset.type;
+}
+
+function fmt(cmd) {
+  document.getElementById('post-content').focus();
+  document.execCommand(cmd, false, null);
+}
+
+function insertQuote() {
+  const sel = window.getSelection();
+  const text = sel ? sel.toString() : '';
+  const el = document.getElementById('post-content');
+  const quote = document.createElement('blockquote');
+  quote.className = 'editor-quote';
+  quote.textContent = text || '引用内容…';
+  el.appendChild(quote);
+  el.appendChild(document.createElement('br'));
+}
+
+function insertLink() {
+  const url = prompt('请输入链接地址：', 'https://');
+  if (url) document.execCommand('createLink', false, url);
+}
+
+function insertSpoiler() {
+  const el = document.getElementById('post-content');
+  const span = document.createElement('span');
+  span.className = 'spoiler-block';
+  span.textContent = '剧透内容，点击显示';
+  span.onclick = function() { this.classList.toggle('revealed'); };
+  el.appendChild(span);
+}
+
+function insertImage(input) {
+  if (!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const area = document.getElementById('img-preview-area');
+    const wrap = document.createElement('div');
+    wrap.className = 'img-preview-item';
+    wrap.innerHTML = `<img src="${e.target.result}" alt="图片"><button onclick="this.parentNode.remove()"><i class="fa-solid fa-xmark"></i></button>`;
+    area.appendChild(wrap);
+
+    // 也插入编辑器
+    const editor = document.getElementById('post-content');
+    const img = document.createElement('img');
+    img.src = e.target.result;
+    img.className = 'editor-img';
+    editor.appendChild(img);
+  };
+  reader.readAsDataURL(input.files[0]);
+  input.value = '';
+}
+
+function addTag(t) {
+  if (!t || tags.length >= 5 || tags.includes(t)) return;
+  tags.push(t);
+  renderTags();
+}
+
+function addTagSuggestion(t) { addTag(t); }
+
+function removeTag(i) { tags.splice(i, 1); renderTags(); }
+
+function renderTags() {
+  document.getElementById('tag-list').innerHTML = tags.map((t, i) =>
+    `<span class="post-tag"># ${t} <i class="fa-solid fa-xmark" onclick="removeTag(${i})"></i></span>`
+  ).join('');
+}
+
+function updatePreview() {
+  const title = document.getElementById('post-title').value.trim();
+  const content = document.getElementById('post-content').textContent.trim();
+  const card = document.getElementById('preview-card');
+  if (title || content) {
+    card.style.display = 'block';
+    document.getElementById('preview-title').textContent = title || '（无标题）';
+    document.getElementById('preview-content').textContent = (content || '').slice(0, 100) + (content.length > 100 ? '…' : '');
+  } else {
+    card.style.display = 'none';
+  }
+}
+
+function saveDraft() {
+  showToast('草稿已保存');
+}
+
+function submitPost() {
+  const title = document.getElementById('post-title').value.trim();
+  const content = document.getElementById('post-content').textContent.trim();
+  const htmlContent = document.getElementById('post-content').innerHTML;
+
+  if (!title) { showToast('请填写帖子标题'); return; }
+  if (!content) { showToast('请填写帖子内容'); return; }
+
+  const typeMap = { anime:'动画', manga:'漫画', game:'游戏', news:'情报', discuss:'讨论', recommend:'安利' };
+  const post = Posts.add({
+    title,
+    content,
+    htmlContent,
+    type: selectedType,
+    typeLabel: typeMap[selectedType] || '动画',
+    tags: [...tags]
+  });
+
+  showToast('✓ 发布成功！');
+  setTimeout(() => location.href = 'post-detail.html?id=' + post.id, 1000);
+}
+</script>
+</body>
+</html>

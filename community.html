@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社区 — Anime Nexus</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/community.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= 导航 ================= -->
+
+    <header class="navbar">
+
+        <div class="inner navbar-inner">
+
+            <a href="world.html" class="logo">
+                <div class="logo-box">A</div>
+                Anime <span>Nexus</span>
+            </a>
+
+            <nav class="nav">
+                <a href="world.html">首页</a>
+                <a href="anime.html">动画</a>
+                <a href="manga.html">漫画</a>
+                <a href="game.html">游戏</a>
+                <a href="news.html">新闻</a>
+                <a href="museum.html">博物馆</a>
+                <a href="community.html" class="active">社区</a>
+            </nav>
+
+            <div class="search">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="搜索讨论、用户、话题...">
+            </div>
+
+            <!-- navbar.js 会自动生成 -->
+            <div id="nav-user-area"></div>
+
+        </div>
+
+    </header>
+
+    <!-- ================= Hero ================= -->
+
+    <section class="page-hero">
+
+        <div class="inner">
+
+            <div class="breadcrumb">
+                <a href="world.html">首页</a>
+                <span>/</span>
+                <span>社区</span>
+            </div>
+
+            <h1>
+                <i class="fa-solid fa-comments"></i>
+                社区讨论
+            </h1>
+
+            <p>
+                与同好交流，分享你对动画、漫画、游戏的深度见解
+            </p>
+
+        </div>
+
+    </section>
+
+    <div class="inner">
+
+        <div class="comm-layout">
+
+            <!-- ================= 左侧 ================= -->
+
+            <main class="comm-main">
+
+                <!-- 发帖 -->
+
+                <div class="new-post glass-card">
+
+                    <div class="new-post-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div class="new-post-input"
+                        onclick="location.href='login.html'">
+
+                        <span>
+                            分享你的想法...（登录后发布）
+                        </span>
+
+                    </div>
+
+                    <a href="login.html" class="btn-pink">
+                        发帖
+                    </a>
+
+                </div>
+
+                <!-- 分类 -->
+
+                <div class="filter-bar">
+
+                    <span class="filter-chip active">全部</span>
+                    <span class="filter-chip">动画</span>
+                    <span class="filter-chip">漫画</span>
+                    <span class="filter-chip">游戏</span>
+                    <span class="filter-chip">情报</span>
+                    <span class="filter-chip">吐槽</span>
+                    <span class="filter-chip">安利</span>
+
+                </div>
+
+                <!-- ================= 帖子 ================= -->
+
+                <div class="post-list" id="post-list">
+
+                    <!-- 第一篇 -->
+
+                    <a class="post-card glass-card"
+                       href="post-detail.html?demo=1">
+
+                        <div class="post-left">
+
+                            <div class="post-votes">
+
+                                <i class="fa-solid fa-heart"
+                                   style="color:rgba(255,79,163,.65)">
+                                </i>
+
+                                <span>1.2k</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="post-body">
+
+                            <div class="post-meta">
+
+                                <span class="tag anime">
+                                    动画
+                                </span>
+
+                                <span class="post-author">
+                                    u/Ace_V2
+                                </span>
+
+                                <span class="post-time">
+                                    · 2小时前
+                                </span>
+
+                            </div>
+
+                            <h3 class="post-title">
+                                【讨论】《进击的巨人》最终回：你满意这个结局吗？
+                            </h3>
+
+                            <p class="post-preview">
+
+                                艾伦的“地鸣”最终究竟带来了什么？
+
+                                作为一部陪伴了十余年的漫画与动画，
+                                结局究竟算圆满、遗憾，
+                                还是一种无可避免的时代终点？
+
+                            </p>
+
+                            <div class="post-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-comment"></i>
+                                    342 条回复
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-share"></i>
+                                    分享
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-bookmark"></i>
+                                    收藏
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+                    <!-- 第二篇 -->
+
+                    <a class="post-card glass-card"
+                       href="post-detail.html?demo=2">
+
+                        <div class="post-left">
+
+                            <div class="post-votes">
+
+                                <i class="fa-solid fa-chevron-up"></i>
+                                <span>980</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+                        <div class="post-body">
+
+                            <div class="post-meta">
+
+                                <span class="tag manga">漫画</span>
+
+                                <span class="post-author">
+                                    u/BerserkFan
+                                </span>
+
+                                <span class="post-time">
+                                    · 5小时前
+                                </span>
+
+                            </div>
+
+                            <h3 class="post-title">
+                                【解析】《剑风传奇》最新话：格斯的命运是否已经注定？
+                            </h3>
+
+                            <p class="post-preview">
+                                随着继承连载不断推进，画面越来越接近三浦建太郎晚期风格。
+                                但在剧情上，格斯究竟还能否摆脱“因果律”，仍然引发了大量讨论。
+                            </p>
+
+                            <div class="post-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-comment"></i>
+                                    210 条回复
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-share"></i>
+                                    分享
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-bookmark"></i>
+                                    收藏
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                    <!-- 第三篇 -->
+
+                    <a class="post-card glass-card"
+                       href="post-detail.html?demo=3">
+
+                        <div class="post-left">
+
+                            <div class="post-votes">
+
+                                <i class="fa-solid fa-chevron-up"></i>
+                                <span>2.3k</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+                        <div class="post-body">
+
+                            <div class="post-meta">
+
+                                <span class="tag game">游戏</span>
+
+                                <span class="post-author">
+                                    u/GameOtaku
+                                </span>
+
+                                <span class="post-time">
+                                    · 1天前
+                                </span>
+
+                            </div>
+
+                            <h3 class="post-title">
+                                【安利】二次元玩家必玩的 TOP10 游戏
+                            </h3>
+
+                            <p class="post-preview">
+                                女神异闻录5、空洞骑士、艾尔登法环、十三机兵防卫圈……
+                                每一款都值得投入几十甚至上百小时。
+                            </p>
+
+                            <div class="post-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-comment"></i>
+                                    512 条回复
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-share"></i>
+                                    分享
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-bookmark"></i>
+                                    收藏
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                    <!-- 第四篇 -->
+
+                    <a class="post-card glass-card"
+                       href="post-detail.html?demo=4">
+
+                        <div class="post-left">
+
+                            <div class="post-votes">
+
+                                <i class="fa-solid fa-chevron-up"></i>
+                                <span>764</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+                        <div class="post-body">
+
+                            <div class="post-meta">
+
+                                <span class="tag anime">
+                                    动画
+                                </span>
+
+                                <span class="post-author">
+                                    u/FrierenLover
+                                </span>
+
+                                <span class="post-time">
+                                    · 2天前
+                                </span>
+
+                            </div>
+
+                            <h3 class="post-title">
+                                《葬送的芙莉莲》为什么总能让人在最平静的片段流泪？
+                            </h3>
+
+                            <p class="post-preview">
+                                没有刻意煽情，没有激昂配乐。
+                                希梅尔离世之后，
+                                芙莉莲重新踏上旅程，
+                                那份跨越几十年的情感反而最令人动容。
+                            </p>
+
+                            <div class="post-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-comment"></i>
+                                    198 条回复
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-share"></i>
+                                    分享
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-bookmark"></i>
+                                    收藏
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                    <!-- 第五篇 -->
+
+                    <a class="post-card glass-card"
+                       href="post-detail.html?demo=5">
+
+                        <div class="post-left">
+
+                            <div class="post-votes">
+
+                                <i class="fa-solid fa-chevron-up"></i>
+                                <span>1.8k</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+                        <div class="post-body">
+
+                            <div class="post-meta">
+
+                                <span class="tag-plain"
+                                      style="background:rgba(255,163,79,.9);border-radius:999px;padding:3px 10px;font-size:11px;font-weight:600;">
+                                    情报
+                                </span>
+
+                                <span class="post-author">
+                                    u/NewsBot
+                                </span>
+
+                                <span class="post-time">
+                                    · 3天前
+                                </span>
+
+                            </div>
+
+                            <h3 class="post-title">
+                                【情报】《攻壳机动队》全新TV动画正式公开
+                            </h3>
+
+                            <p class="post-preview">
+                                官方宣布新系列动画制作决定，
+                                延续未来网络社会设定，
+                                Production I.G 负责动画制作，
+                                更多消息将在后续陆续公布。
+                            </p>
+
+                            <div class="post-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-comment"></i>
+                                    401 条回复
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-share"></i>
+                                    分享
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-bookmark"></i>
+                                    收藏
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </main>
+            <!-- ================= 右侧边栏 ================= -->
+
+            <aside class="comm-sidebar">
+
+                <!-- 本周热帖 -->
+
+                <div class="sidebar-card glass-card">
+
+                    <div class="sidebar-title">
+                        <i class="fa-solid fa-fire"></i>
+                        本周热帖
+                    </div>
+
+                    <div class="hot-list">
+
+                        <div class="hot-item">
+                            <span class="hot-num">1</span>
+                            <span>《葬送的芙莉莲》为何让人落泪</span>
+                        </div>
+
+                        <div class="hot-item">
+                            <span class="hot-num">2</span>
+                            <span>进击的巨人结局满意度调查</span>
+                        </div>
+
+                        <div class="hot-item">
+                            <span class="hot-num">3</span>
+                            <span>空洞骑士：丝之歌最新情报</span>
+                        </div>
+
+                        <div class="hot-item">
+                            <span class="hot-num">4</span>
+                            <span>攻壳机动队新动画正式公开</span>
+                        </div>
+
+                        <div class="hot-item">
+                            <span class="hot-num">5</span>
+                            <span>2025年度最佳动画预测</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- 热门话题 -->
+
+                <div class="sidebar-card glass-card">
+
+                    <div class="sidebar-title">
+                        <i class="fa-solid fa-hashtag"></i>
+                        热门话题
+                    </div>
+
+                    <div class="topic-list">
+
+                        <span class="topic-chip"># 进击的巨人</span>
+                        <span class="topic-chip"># 葬送的芙莉莲</span>
+                        <span class="topic-chip"># 剑风传奇</span>
+                        <span class="topic-chip"># 空洞骑士</span>
+                        <span class="topic-chip"># 女神异闻录5</span>
+                        <span class="topic-chip"># 攻壳机动队</span>
+                        <span class="topic-chip"># 每日安利</span>
+
+                    </div>
+
+                </div>
+
+                <!-- 登录 -->
+
+                <div class="sidebar-card glass-card">
+
+                    <div class="sidebar-title">
+                        <i class="fa-solid fa-user-group"></i>
+                        加入社区
+                    </div>
+
+                    <p class="sidebar-desc">
+                        登录后即可发帖、评论、点赞、收藏，
+                        与 Anime Nexus 社区成员一起交流。
+                    </p>
+
+                    <a href="login.html"
+                       class="btn-pink"
+                       style="display:block;width:100%;text-align:center;margin-top:15px;">
+                        立即登录
+                    </a>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Footer ================= -->
+
+    <footer class="footer">
+
+        <div class="inner">
+
+            © 2025 Anime Nexus · Community
+
+        </div>
+
+    </footer>
+
+</div>
+
+<!-- ================= JS ================= -->
+
+<script src="js/navbar.js"></script>
+
+</body>
+</html>

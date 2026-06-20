@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作品详情 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/work-detail.css">
+</head>
+<body>
+<div class="app">
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <nav class="nav">
+        <a href="world.html">首页</a><a href="anime.html" id="nav-anime">动画</a><a href="manga.html" id="nav-manga">漫画</a>
+        <a href="game.html" id="nav-game">游戏</a><a href="news.html">新闻</a><a href="museum.html">博物馆</a><a href="community.html">社区</a>
+      </nav>
+      <div class="search"><i class="fa-solid fa-search"></i><input type="text" placeholder="搜索..." id="header-search"></div>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <div id="work-hero" class="work-hero">
+    <div class="work-hero-bg" id="work-hero-bg"></div>
+    <div class="work-hero-overlay"></div>
+    <div class="inner work-hero-content">
+      <div class="work-cover" id="work-cover"><i class="fa-solid fa-film"></i></div>
+      <div class="work-hero-info">
+        <div class="breadcrumb" id="work-breadcrumb"></div>
+        <div class="work-tags-row" id="work-tags-row"></div>
+        <h1 class="work-title" id="work-title">加载中…</h1>
+        <p class="work-title-sub" id="work-title-sub"></p>
+        <p class="work-desc" id="work-desc"></p>
+        <div class="work-meta-grid" id="work-meta-grid"></div>
+        <div class="work-hero-actions">
+          <button class="btn-pink fav-work-btn" id="fav-btn" onclick="toggleFav()"><i class="fa-solid fa-bookmark"></i> 收藏</button>
+          <button class="btn-ghost" onclick="location.href='community.html'"><i class="fa-solid fa-comment"></i> 去讨论</button>
+          <button class="btn-ghost" onclick="shareWork()"><i class="fa-solid fa-share"></i> 分享</button>
+        </div>
+      </div>
+      <div class="work-score-panel glass-card" id="work-score-panel"></div>
+    </div>
+  </div>
+
+  <div class="inner">
+    <div class="work-layout">
+      <div class="work-main">
+        <!-- 剧情简介 -->
+        <div class="work-section glass-card" id="section-story">
+          <div class="work-section-title"><i class="fa-solid fa-book"></i> 剧情简介</div>
+          <div class="work-story" id="work-story"></div>
+        </div>
+        <!-- 评分详情 -->
+        <div class="work-section glass-card">
+          <div class="work-section-title"><i class="fa-solid fa-chart-bar"></i> 评分详情</div>
+          <div class="score-detail-grid" id="score-detail"></div>
+          <div class="score-bar-section" id="score-bars"></div>
+        </div>
+        <!-- 角色/声优 -->
+        <div class="work-section glass-card" id="section-cast" style="display:none">
+          <div class="work-section-title"><i class="fa-solid fa-users"></i> 主要角色</div>
+          <div class="cast-grid" id="cast-grid"></div>
+        </div>
+        <!-- 社区讨论 -->
+        <div class="work-section glass-card">
+          <div class="work-section-title" style="justify-content:space-between">
+            <span><i class="fa-solid fa-comments"></i> 社区讨论</span>
+            <a href="post.html" class="btn-pink" style="font-size:12px;padding:6px 14px">发帖讨论</a>
+          </div>
+          <div class="work-posts" id="work-posts"></div>
+        </div>
+      </div>
+      <aside class="work-sidebar">
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-circle-info"></i> 基本信息</div>
+          <div class="info-list" id="info-list"></div>
+        </div>
+        <div class="sidebar-card glass-card" id="related-card">
+          <div class="sidebar-title"><i class="fa-solid fa-layer-group"></i> 同系列作品</div>
+          <div class="related-list" id="related-works"></div>
+        </div>
+        <!-- 你可能喜欢 -->
+        <div class="sidebar-card glass-card">
+          <div class="sidebar-title"><i class="fa-solid fa-star"></i> 你可能喜欢</div>
+          <div class="related-list" id="recommend-works"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus · 综合 Bangumi · 豆瓣 · MAL 评分数据</div></footer>
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+// ══════════════════════════════════════════
+// 作品数据库（扩充至 12 部）
+// ══════════════════════════════════════════
+const WORKS = {
+
+  // ── 动画 ──────────────────────────────
+  'aot': {
+    id:'aot', type:'anime',
+    title:'进击的巨人', sub:'Shingeki no Kyojin',
+    desc:'人类与巨人的生存之战，一部关于自由与枷锁的史诗。艾伦、三笠、阿尔敏三人从壁内少年成长为命运的执行者，经历了背叛、觉醒与毁灭。',
+    story:'人类为了躲避巨人的威胁，建造了三重巨大的城墙居住其中。某天，超大型巨人突然出现，打破了外墙，导致外城区的居民被巨人吞食。主角艾伦·耶格尔亲眼目睹母亲被巨人吞食，立志消灭所有巨人，加入了调查兵团。随着故事深入，有关巨人起源与世界真相的秘密逐渐揭晓——壁内的人类并非最后的幸存者，而地下室的钥匙，隐藏着改变一切的答案。',
+    coverImg:'images/aot.png', coverColor:'#2a2a3a',
+    scores:{ bangumi:9.8, douban:9.7, mal:9.0 },
+    meta:{ type:'TV动画', episodes:75, year:'2013–2023', studio:'WIT Studio / MAPPA', director:'荒木哲郎', author:'谏山创', rating:'PG-13' },
+    info:{ '首播年份':'2013', '完结年份':'2023', '话数':'75话', '制作公司':'WIT Studio / MAPPA', '播出平台':'NHK / Netflix', '原作':'漫画（谏山创）', '类型':'TV动画' },
+    cast:[
+      { name:'艾伦·耶格尔', role:'主角', cv:'梶裕贵' },
+      { name:'三笠·阿卡曼', role:'女主角', cv:'石川由依' },
+      { name:'阿尔敏·阿诺德', role:'战略家', cv:'井上麻里奈' },
+      { name:'里维·阿卡曼', role:'兵长', cv:'神谷浩史' }
+    ],
+    related:[ {title:'进击的巨人 OAD',id:'aot-oad'}, {title:'进击的巨人 剧场版',id:'aot-movie'} ],
+    recommend:[ {title:'葬送的芙莉莲',id:'frieren'}, {title:'咒术回战',id:'jjk'} ],
+    posts:[{id:'1',title:'《进击的巨人》结局你满意吗？',author:'Ace_V2',votes:1243,comments:342,time:'2小时前',type:'anime'},{id:'4',title:'《芙莉莲》为何让人哭出来（进击番外讨论）',author:'FrierenLover',votes:764,comments:198,time:'2天前',type:'anime'}]
+  },
+
+  'frieren': {
+    id:'frieren', type:'anime',
+    title:'葬送的芙莉莲', sub:"Frieren: Beyond Journey's End",
+    desc:'精灵魔法师芙莉莲踏上追忆之旅，探寻何为"人类的一生"。以细腻叙事与高质量制作成为新时代奇幻动画标杆。',
+    story:'勇者一行人打倒了魔王，但芙莉莲对十年旅程的记忆却模糊了。当她重逢老去的昔日伙伴时，才开始思考那些曾经共度的时光对自己意味着什么。她踏上前往极北之地的新旅程，想要找到当年错过的答案。在旅途中，芙莉莲收了弟子菲伦，在她身上隐隐看到了已故勇者的影子，开始慢慢学会如何与人类相处，如何感受那转瞬即逝的情感。',
+    coverImg:'images/fll.png', coverColor:'#1e2a3a',
+    scores:{ bangumi:9.6, douban:9.4, mal:9.3 },
+    meta:{ type:'TV动画', episodes:28, year:'2023', studio:'Madhouse', director:'斋藤圭一郎', author:'山田钟人', rating:'G' },
+    info:{ '首播年份':'2023', '话数':'28话', '制作公司':'Madhouse', '播出平台':'MBS / Netflix', '原作':'漫画（山田钟人 / 阿部司）', '类型':'TV动画' },
+    cast:[
+      { name:'芙莉莲', role:'精灵魔法师', cv:'种崎敦美' },
+      { name:'菲伦', role:'弟子', cv:'市ノ瀬加那' },
+      { name:'莱尼', role:'神官战士', cv:'小林千晃' },
+      { name:'希梅尔', role:'勇者（回忆）', cv:'岡本信彦' }
+    ],
+    related:[ {title:'葬送的芙莉莲 漫画',id:'frieren-manga'} ],
+    recommend:[ {title:'进击的巨人',id:'aot'}, {title:'咒术回战',id:'jjk'} ],
+    posts:[{id:'4',title:'《葬送的芙莉莲》为何让人哭出来？',author:'FrierenLover',votes:764,comments:198,time:'2天前',type:'anime'}]
+  },
+
+  'jjk': {
+    id:'jjk', type:'anime',
+    title:'咒术回战', sub:'Jujutsu Kaisen',
+    desc:'虎杖悠仁吞入诅咒之王手指，踏入咒术师的黑暗世界。MAPPA 以电影级动作作画重新定义现代热血动画。',
+    story:'高中生虎杖悠仁为了保护同伴，吞下了诅咒之王两面宿儺的手指，从此成为宿儺的容器。他进入东京都立咒术高专，跟随五条悟修行，目标是在死前收集并吞下所有二十根手指，以"正确的死法"了结自己的生命。然而咒术界的黑暗远不止如此，更大的阴谋正在涌动。',
+    coverImg:'images/zshz.png', coverColor:'#1a1428',
+    scores:{ bangumi:9.2, douban:9.1, mal:8.6 },
+    meta:{ type:'TV动画', episodes:47, year:'2020–', studio:'MAPPA', director:'朴性厚', author:'芥见下下', rating:'PG-13' },
+    info:{ '首播年份':'2020', '话数':'47话（持续中）', '制作公司':'MAPPA', '播出平台':'MBS / Netflix', '原作':'漫画（芥见下下）', '类型':'TV动画' },
+    cast:[
+      { name:'虎杖悠仁', role:'主角', cv:'榎木淳弥' },
+      { name:'五条悟', role:'最强咒术师', cv:'中村悠一' },
+      { name:'伏黑惠', role:'同学', cv:'内田雄马' },
+      { name:'钉崎野蔷薇', role:'同学', cv:'瀬戸麻沙美' }
+    ],
+    related:[ {title:'咒术回战 0（剧场版）',id:'jjk-0'} ],
+    recommend:[ {title:'进击的巨人',id:'aot'}, {title:'鬼灭之刃',id:'kimetsu'} ],
+    posts:[{id:'1',title:'《进击的巨人》结局你满意吗？',author:'Ace_V2',votes:1243,comments:342,time:'2小时前',type:'anime'}]
+  },
+
+  'kimetsu': {
+    id:'kimetsu', type:'anime',
+    title:'鬼灭之刃', sub:'Demon Slayer: Kimetsu no Yaiba',
+    desc:'竈门炭治郎踏上斩鬼之路，誓还妹妹人形。ufotable 以顶级数字作画刷新大众对TV动画制作水准的认知。',
+    story:'大正时代，少年竈门炭治郎下山归来，发现家人惨遭鬼怪杀害，唯一幸存的妹妹祢豆子却变成了鬼。为了让妹妹恢复人形，炭治郎踏上了成为鬼杀队队士的修行之路，与同伴一起对抗十二鬼月，最终剑指鬼舞辻无惨。',
+    coverImg:'images/gmzr.png', coverColor:'#1a0f2e',
+    scores:{ bangumi:9.1, douban:9.0, mal:8.5 },
+    meta:{ type:'TV动画', episodes:44, year:'2019–2021', studio:'ufotable', director:'外崎春雄', author:'吾峠呼世晴', rating:'PG-13' },
+    info:{ '首播年份':'2019', '完结年份':'2021（TV）', '话数':'44话', '制作公司':'ufotable', '播出平台':'Fuji TV / Netflix', '原作':'漫画（吾峠呼世晴）', '类型':'TV动画' },
+    cast:[
+      { name:'竈门炭治郎', role:'主角', cv:'花江夏树' },
+      { name:'竈门祢豆子', role:'妹妹', cv:'鬼头明里' },
+      { name:'我妻善逸', role:'雷之呼吸', cv:'下野紘' },
+      { name:'嘴平伊之助', role:'猛士', cv:'松岡禎丞' }
+    ],
+    related:[ {title:'鬼灭之刃 剧场版：无限列车篇',id:'kimetsu-movie'} ],
+    recommend:[ {title:'咒术回战',id:'jjk'}, {title:'进击的巨人',id:'aot'} ],
+    posts:[{id:'3',title:'你最喜欢的二次元游戏TOP10',author:'GameOtaku',votes:2341,comments:512,time:'1天前',type:'game'}]
+  },
+
+  'spyfamily': {
+    id:'spyfamily', type:'anime',
+    title:'间谍过家家', sub:'SPY×FAMILY',
+    desc:'间谍、杀手、读心术少女组成的假家庭，展开笑中带泪的任务。温馨与悬疑并存的家庭喜剧。',
+    story:'代号"黄昏"的间谍洛伊德·福杰为了执行渗透任务，临时组建了一个假家庭：收养了具有读心能力的孤儿阿尼亚，并与杀手约尔·布莱尔缔结契约婚姻。三人各自隐瞒身份，却在共同生活中真正地靠近彼此——尽管谁都不知道对方的秘密。',
+    coverImg:'images/spy.png', coverColor:'#1a2a1a',
+    scores:{ bangumi:8.9, douban:9.0, mal:8.5 },
+    meta:{ type:'TV动画', episodes:37, year:'2022–', studio:'WIT Studio × CloverWorks', director:'古贺一臣', author:'远藤达哉', rating:'G' },
+    info:{ '首播年份':'2022', '话数':'37话（持续中）', '制作公司':'WIT Studio × CloverWorks', '播出平台':'TV Tokyo / Netflix', '原作':'漫画（远藤达哉）', '类型':'TV动画' },
+    cast:[
+      { name:'洛伊德·福杰', role:'间谍', cv:'江口拓也' },
+      { name:'约尔·福杰', role:'杀手', cv:'早見沙織' },
+      { name:'阿尼亚·福杰', role:'读心术少女', cv:'种崎敦美' },
+      { name:'邦德·福杰', role:'预知能力犬', cv:'（无台词）' }
+    ],
+    related:[ {title:'间谍过家家 剧场版：CODE: White',id:'spyfamily-movie'} ],
+    recommend:[ {title:'葬送的芙莉莲',id:'frieren'}, {title:'鬼灭之刃',id:'kimetsu'} ],
+    posts:[{id:'4',title:'《葬送的芙莉莲》为何让人哭出来？',author:'FrierenLover',votes:764,comments:198,time:'2天前',type:'anime'}]
+  },
+    'code-geass': {
+    id:'code-geass', type:'anime',
+    title:'反叛的鲁路修', sub:'Code Geass: Lelouch of the Rebellion',
+    desc:'拥有Geass能力的鲁路修，为了妹妹与理想世界，向神圣布里塔尼亚帝国发起革命。被誉为最经典的智斗机甲动画之一。',
+    story:'神圣布里塔尼亚帝国征服日本后，将其改名为11区。失去母亲、妹妹残疾的皇子鲁路修偶然获得神秘少女CC赋予的Geass能力——绝对命令。他化名Zero组织黑色骑士团，对帝国发动革命，并逐渐卷入世界战争与命运轮回之中。最终，为了创造和平世界，他实施了"零之镇魂曲"。',
+    coverImg:'images/code-geass.png',
+    coverColor:'#2b1a28',
+    scores:{ bangumi:9.4,douban:9.2,mal:8.7 },
+    meta:{ type:'TV动画',episodes:50,year:'2006–2008',studio:'Sunrise',director:'谷口悟朗',author:'大河内一楼 / CLAMP',rating:'PG-13'},
+    info:{
+      '首播年份':'2006',
+      '完结年份':'2008',
+      '话数':'50话',
+      '制作公司':'Sunrise',
+      '播出平台':'MBS',
+      '原作':'原创动画',
+      '类型':'TV动画'
+    },
+    cast:[
+      {name:'鲁路修·兰佩路基',role:'Zero',cv:'福山润'},
+      {name:'枢木朱雀',role:'圆桌骑士',cv:'樱井孝宏'},
+      {name:'CC',role:'Geass契约者',cv:'ゆかな'},
+      {name:'娜娜莉',role:'妹妹',cv:'名塚佳织'}
+    ],
+    related:[
+      {title:'Code Geass R2',id:'code-geass-r2'},
+      {title:'复活的鲁路修',id:'code-geass-movie'}
+    ],
+    recommend:[
+      {title:'新世纪福音战士',id:'evangelion'},
+      {title:'进击的巨人',id:'aot'}
+    ],
+    posts:[
+      {id:'11',title:'零之镇魂曲到底是不是最佳结局？',author:'Zero',votes:2189,comments:651,time:'5小时前',type:'anime'}
+    ]
+  },
+
+  'cowboy-bebop':{
+    id:'cowboy-bebop',type:'anime',
+    title:'星际牛仔',
+    sub:'Cowboy Bebop',
+    desc:'爵士乐、西部片与赛博朋克融合而成的不朽经典，被誉为动画史最伟大的原创作品之一。',
+    story:'2071年，人类已经移民太阳系。赏金猎人史派克、杰特、菲等人在飞船Bebop号上四处追捕罪犯维生。每集都是独立故事，却又逐渐拼凑出史派克与黑帮组织"红龙"以及宿敌Vicious之间无法摆脱的过去。',
+    coverImg:'images/cowboy-bebop.png',
+    coverColor:'#1f1d24',
+    scores:{ bangumi:9.5,douban:9.3,mal:8.8 },
+    meta:{ type:'TV动画',episodes:26,year:'1998',studio:'Sunrise',director:'渡边信一郎',author:'矢立肇',rating:'PG-13'},
+    info:{
+      '首播年份':'1998',
+      '话数':'26话',
+      '制作公司':'Sunrise',
+      '播出平台':'TV Tokyo',
+      '原作':'原创动画',
+      '类型':'TV动画'
+    },
+    cast:[
+      {name:'史派克',role:'赏金猎人',cv:'山寺宏一'},
+      {name:'杰特',role:'搭档',cv:'石冢运升'},
+      {name:'菲·瓦伦丁',role:'女主角',cv:'林原惠'},
+      {name:'爱德',role:'黑客',cv:'多田葵'}
+    ],
+    related:[
+      {title:'星际牛仔 天国之门',id:'cowboy-movie'}
+    ],
+    recommend:[
+      {title:'新世纪福音战士',id:'evangelion'},
+      {title:'反叛的鲁路修',id:'code-geass'}
+    ],
+    posts:[
+      {id:'12',title:'为什么Cowboy Bebop能成为神作？',author:'Spike',votes:1432,comments:302,time:'3天前',type:'anime'}
+    ]
+  },
+
+  'mononoke':{
+    id:'mononoke',
+    type:'anime',
+    title:'幽灵公主',
+    sub:'Princess Mononoke',
+    desc:'宫崎骏最具史诗气质的作品，讲述人与自然之间永恒的冲突。',
+    story:'少年阿席达卡因诅咒踏上旅程，来到人与森林神灵激烈对立的西方。在这里，他遇见了由狼神抚养长大的少女珊，以及建立炼铁城的人类领袖黑帽大人。人类文明与自然信仰之间没有绝对善恶，只有不断碰撞的生存选择。',
+    coverImg:'images/mononoke.png',
+    coverColor:'#243225',
+    scores:{ bangumi:9.6,douban:9.5,mal:8.7 },
+    meta:{ type:'剧场版',episodes:1,year:'1997',studio:'Studio Ghibli',director:'宫崎骏',author:'宫崎骏',rating:'PG'},
+    info:{
+      '上映年份':'1997',
+      '片长':'133分钟',
+      '制作公司':'Studio Ghibli',
+      '发行':'东宝',
+      '类型':'动画电影'
+    },
+    cast:[
+      {name:'阿席达卡',role:'男主角',cv:'松田洋治'},
+      {name:'珊',role:'女主角',cv:'石田百合子'},
+      {name:'黑帽大人',role:'炼铁城领袖',cv:'田中裕子'}
+    ],
+    related:[],
+    recommend:[
+      {title:'千与千寻',id:'spirited'},
+      {title:'葬送的芙莉莲',id:'frieren'}
+    ],
+    posts:[
+      {id:'13',title:'宫崎骏最好的电影是哪部？',author:'GhibliFan',votes:1822,comments:410,time:'昨天',type:'anime'}
+    ]
+  },
+
+  'spirited':{
+    id:'spirited',
+    type:'anime',
+    title:'千与千寻',
+    sub:'Spirited Away',
+    desc:'获得奥斯卡最佳动画长片，宫崎骏影响力最大的代表作。',
+    story:'少女千寻误入神灵世界，为了救回变成猪的父母，只能在汤婆婆经营的油屋工作。在不断成长的过程中，她结识了白龙、无脸男等角色，并最终找回了自己的名字与勇气。',
+    coverImg:'images/spirited.png',
+    coverColor:'#20334a',
+    scores:{ bangumi:9.7,douban:9.4,mal:8.6 },
+    meta:{ type:'剧场版',episodes:1,year:'2001',studio:'Studio Ghibli',director:'宫崎骏',author:'宫崎骏',rating:'G'},
+    info:{
+      '上映年份':'2001',
+      '片长':'125分钟',
+      '制作公司':'Studio Ghibli',
+      '发行':'东宝',
+      '类型':'动画电影'
+    },
+    cast:[
+      {name:'荻野千寻',role:'主角',cv:'柊瑠美'},
+      {name:'白龙',role:'河神',cv:'入野自由'},
+      {name:'无脸男',role:'神秘妖怪',cv:'中村彰男'},
+      {name:'汤婆婆',role:'老板娘',cv:'夏木真理'}
+    ],
+    related:[],
+    recommend:[
+      {title:'幽灵公主',id:'mononoke'},
+      {title:'葬送的芙莉莲',id:'frieren'}
+    ],
+    posts:[
+      {id:'14',title:'《千与千寻》隐藏细节整理',author:'Kaonashi',votes:2110,comments:523,time:'4天前',type:'anime'}
+    ]
+  },
+
+  'evangelion':{
+    id:'evangelion',
+    type:'anime',
+    title:'新世纪福音战士',
+    sub:'Neon Genesis Evangelion',
+    desc:'影响整个日本动画史的里程碑作品，以心理描写与宗教隐喻重新定义机甲动画。',
+    story:'2015年，人类遭受使徒袭击。少年碇真嗣被父亲召回，驾驶EVA初号机迎战敌人。随着战斗不断深入，他逐渐发现NERV组织、人类补完计划以及自己身世背后的真相。作品以后期极具实验性的心理演出震撼世界。',
+    coverImg:'images/eva.png',
+    coverColor:'#241b31',
+    scores:{ bangumi:9.5,douban:9.3,mal:8.6 },
+    meta:{ type:'TV动画',episodes:26,year:'1995',studio:'Gainax',director:'庵野秀明',author:'庵野秀明',rating:'PG-13'},
+    info:{
+      '首播年份':'1995',
+      '话数':'26话',
+      '制作公司':'Gainax',
+      '播出平台':'TV Tokyo',
+      '原作':'原创动画',
+      '类型':'TV动画'
+    },
+    cast:[
+      {name:'碇真嗣',role:'初号机驾驶员',cv:'绪方惠美'},
+      {name:'绫波丽',role:'零号机驾驶员',cv:'林原惠'},
+      {name:'明日香',role:'二号机驾驶员',cv:'宫村优子'},
+      {name:'葛城美里',role:'作战部长',cv:'三石琴乃'}
+    ],
+    related:[
+      {title:'EVA 新剧场版：序',id:'eva-rebuild'}
+    ],
+    recommend:[
+      {title:'反叛的鲁路修',id:'code-geass'},
+      {title:'星际牛仔',id:'cowboy-bebop'}
+    ],
+    posts:[
+      {id:'15',title:'EVA到底讲了什么？',author:'ThirdImpact',votes:2984,comments:1180,time:'6小时前',type:'anime'}
+    ]
+  },
+
+  // ── 漫画 ──────────────────────────────
+  'berserk': {
+    id:'berserk', type:'manga',
+    title:'剑风传奇', sub:'Berserk',
+    desc:'黑剑士格斯踏上复仇之路，三浦建太郎倾三十年构筑的黑暗奇幻史诗。影响了无数后世作品，被誉为漫画史上最伟大的叙事之一。',
+    story:'格斯出生于死者之腹，从小以战场为家，以生存为目的。在与鹰之团的相遇中，他与格里菲斯结下了命运般的羁绊。然而"日蚀"一天，一切化为灰烬——挚友背叛，同伴惨死，卡斯卡被夺走理智，而格斯本人也刻下了永不消散的烙印。带着对命运的愤怒与对格里菲斯的仇恨，格斯踏上了独自一人对抗使徒与神之手的复仇之路。',
+    coverImg:'images/berserk.png', coverColor:'#1a1a2e',
+    scores:{ bangumi:9.8, douban:9.7, mal:9.4 },
+    meta:{ type:'青年漫画', volumes:41, year:'1997–', publisher:'白泉社', author:'三浦建太郎', rating:'R-18' },
+    info:{ '连载年份':'1997–（续载中）', '卷数':'41卷+', '出版社':'白泉社', '作者':'三浦建太郎', '继承作者':'森田真二', '类型':'青年漫画（黑暗奇幻）' },
+    cast:[
+      { name:'格斯', role:'黑剑士', cv:'系川拓也（动画版）' },
+      { name:'格里菲斯', role:'白鹰', cv:'置鲇龙太郎（动画版）' },
+      { name:'卡斯卡', role:'女战士', cv:'行成とあ（动画版）' },
+      { name:'帕克', role:'精灵', cv:'大塚明夫（动画版）' }
+    ],
+    related:[ {title:'剑风传奇 1997 OVA',id:'berserk-ova'}, {title:'剑风传奇 2016 TV动画',id:'berserk-2016'} ],
+    recommend:[ {title:'全职猎人',id:'hxh'}, {title:'进击的巨人漫画',id:'aot-manga'} ],
+    posts:[{id:'2',title:'《剑风传奇》最新话解析！',author:'BerserkFan',votes:980,comments:210,time:'5小时前',type:'manga'}]
+  },
+
+  'hxh': {
+    id:'hxh', type:'manga',
+    title:'全职猎人', sub:'Hunter×Hunter',
+    desc:'少年小杰踏上成为猎人之路，寻找失踪的父亲。念能力系统构筑了漫画史最精密的世界观，富坚义博以断续的连载方式挑战读者的耐心与热情。',
+    story:'少年小杰·弗利克斯从小在鲸鱼岛与姑姑共同生活，听说父亲是传说级猎人金·弗利克斯后，立志成为猎人寻找父亲。在猎人考试中，他结识了奇拉、库拉皮卡、雷欧力，共同闯过重重难关。故事随后展开了天空竞技场、约克新、蚂蚁篇、选举篇等多个精彩弧章，每一章都以独特的叙事结构与深度规则设计令人叹为观止。',
+    coverImg:'images/hunter.png', coverColor:'#1a2a0d',
+    scores:{ bangumi:9.7, douban:9.5, mal:9.0 },
+    meta:{ type:'少年漫画', volumes:37, year:'1998–', publisher:'集英社', author:'富坚义博', rating:'PG-13' },
+    info:{ '连载年份':'1998–（断续中）', '卷数':'37卷', '出版社':'集英社', '作者':'富坚义博', '类型':'少年漫画（冒险·战斗）' },
+    cast:[
+      { name:'小杰·弗利克斯', role:'主角', cv:'潘めぐみ（2011动画）' },
+      { name:'奇拉·佐尔迪克', role:'杀手', cv:'伊瀬茉莉也（2011动画）' },
+      { name:'库拉皮卡', role:'旅团追踪者', cv:'雪野五月（2011动画）' },
+      { name:'雷欧力·帕拉丁奈特', role:'警察', cv:'津田健次郎（2011动画）' }
+    ],
+    related:[ {title:'全职猎人 1999 TV动画',id:'hxh-1999'}, {title:'全职猎人 2011 TV动画',id:'hxh-2011'} ],
+    recommend:[ {title:'剑风传奇',id:'berserk'}, {title:'进击的巨人',id:'aot'} ],
+    posts:[{id:'2',title:'《剑风传奇》最新话解析！',author:'BerserkFan',votes:980,comments:210,time:'5小时前',type:'manga'}]
+  },
+
+  'aot-manga': {
+    id:'aot-manga', type:'manga',
+    title:'进击的巨人（漫画）', sub:'Shingeki no Kyojin',
+    desc:'谏山创以震撼的世界观与反转叙事成为21世纪少年漫代表作之一，原作漫画结局争议至今。',
+    story:'同动画版剧情，但原作漫画在最终章的处理上更为凝练直接。艾伦·耶格尔以"地鸣"消灭了沿海外的八成人类，最终被旧友联军击败。谏山创选择了一个充满悲剧性与哲学深度的结尾——自由与杀戮的矛盾，无从回答，只留下无尽的余韵。',
+    coverImg:'images/aot (2).png', coverColor:'#2a1a1a',
+    scores:{ bangumi:9.5, douban:9.3, mal:8.5 },
+    meta:{ type:'青年漫画', volumes:34, year:'2009–2021', publisher:'讲谈社', author:'谏山创', rating:'R' },
+    info:{ '连载年份':'2009–2021', '卷数':'34卷', '出版社':'讲谈社', '作者':'谏山创', '获奖':'2013年讲谈社漫画奖', '类型':'少年漫画（黑暗奇幻）' },
+    cast:[
+      { name:'艾伦·耶格尔', role:'主角', cv:'（漫画原作）' },
+      { name:'三笠·阿卡曼', role:'女主角', cv:'（漫画原作）' },
+      { name:'里维', role:'兵长', cv:'（漫画原作）' }
+    ],
+    related:[ {title:'进击的巨人 TV动画',id:'aot'} ],
+    recommend:[ {title:'剑风传奇',id:'berserk'}, {title:'全职猎人',id:'hxh'} ],
+    posts:[{id:'1',title:'《进击的巨人》结局你满意吗？',author:'Ace_V2',votes:1243,comments:342,time:'2小时前',type:'anime'}]
+  },
+
+  'frieren-manga': {
+    id:'frieren-manga', type:'manga',
+    title:'葬送的芙莉莲（漫画）', sub:"Frieren: Beyond Journey's End",
+    desc:'山田钟人与阿部司合著，以简洁笔触刻画千年魔法师对人类情感的缓慢理解。',
+    story:'与动画版一致，漫画版更多展示了芙莉莲世界中丰富的魔法细节与小故事。目前动画未涵盖的"一级魔法师试验"篇幅尤为精彩，展示了芙莉莲作为弟子培养者的一面。',
+    coverImg:'images/fll (2).png', coverColor:'#0d1a2e',
+    scores:{ bangumi:9.4, douban:9.2, mal:8.9 },
+    meta:{ type:'青年漫画', volumes:13, year:'2020–', publisher:'小学馆', author:'山田钟人 / 阿部司', rating:'G' },
+    info:{ '连载年份':'2020–（连载中）', '卷数':'13卷+', '出版社':'小学馆', '原作':'山田钟人', '作画':'阿部司', '类型':'青年漫画（奇幻）' },
+    cast:[
+      { name:'芙莉莲', role:'精灵魔法师', cv:'（漫画原作）' },
+      { name:'菲伦', role:'弟子', cv:'（漫画原作）' },
+      { name:'莱尼', role:'神官战士', cv:'（漫画原作）' }
+    ],
+    related:[ {title:'葬送的芙莉莲 TV动画',id:'frieren'} ],
+    recommend:[ {title:'剑风传奇',id:'berserk'}, {title:'全职猎人',id:'hxh'} ],
+    posts:[{id:'4',title:'《葬送的芙莉莲》为何让人哭出来？',author:'FrierenLover',votes:764,comments:198,time:'2天前',type:'anime'}]
+  },
+  'one-piece': {
+    id:'one-piece',
+    type:'manga',
+
+    title:'海贼王',
+    sub:'One Piece',
+
+    desc:'路飞与伙伴们踏上伟大航路，寻找传说中的 One Piece。尾田荣一郎创作的世界级漫画，也是全球销量最高的漫画作品。',
+
+    story:'少年蒙奇·D·路飞因误食橡胶果实而获得了橡胶人的能力，同时失去了游泳能力。他以成为海贼王为目标出海，在旅途中陆续结识了索隆、娜美、乌索普、山治、乔巴、罗宾、弗兰奇、布鲁克与甚平等伙伴，共同组成草帽海贼团。众人横跨东海、伟大航路、新世界，不断挑战七武海、四皇、世界政府等强敌，逐渐揭开空白的一百年、D之一族以及最终秘宝 One Piece 的真相。',
+
+    coverImg:'images/onepiece.png',
+    coverColor:'#1b3d73',
+
+    scores:{
+        bangumi:9.3,
+        douban:9.2,
+        mal:9.0
+    },
+
+    meta:{
+        type:'少年漫画',
+        volumes:110,
+        year:'1997–',
+        publisher:'集英社',
+        author:'尾田荣一郎',
+        rating:'PG-13'
+    },
+
+    info:{
+        '连载年份':'1997–（连载中）',
+        '卷数':'110卷+',
+        '出版社':'集英社',
+        '作者':'尾田荣一郎',
+        '类型':'少年漫画（冒险）'
+    },
+
+    cast:[
+        { name:'蒙奇·D·路飞', role:'草帽海贼团船长', cv:'田中真弓（动画版）' },
+        { name:'罗罗诺亚·索隆', role:'剑士', cv:'中井和哉（动画版）' },
+        { name:'娜美', role:'航海士', cv:'冈村明美（动画版）' },
+        { name:'山治', role:'厨师', cv:'平田广明（动画版）' }
+    ],
+
+    related:[
+        {title:'海贼王 RED',id:'onepiece-red'},
+        {title:'海贼王 FILM Z',id:'onepiece-z'}
+    ],
+
+    recommend:[
+        {title:'全职猎人',id:'hxh'},
+        {title:'咒术回战',id:'jjk-manga'}
+    ],
+
+    posts:[
+        {
+            id:'6',
+            title:'尾田到底什么时候完结海贼王？',
+            author:'StrawHat',
+            votes:1684,
+            comments:392,
+            time:'4小时前',
+            type:'manga'
+        }
+    ]
+},
+  'vagabond': {
+    id:'vagabond',
+    type:'manga',
+
+    title:'浪客行',
+    sub:'Vagabond',
+
+    desc:'井上雄彦改编自《吉川英治·宫本武藏》，以近乎艺术品般的画工描绘武藏的一生，被誉为漫画史上最美的作品之一。',
+
+    story:'关原之战后，新免武藏（后改名宫本武藏）为了追求"天下无双"的境界，开始了漫长的修行旅程。从初出茅庐的嗜血少年，到不断思考生命、剑道与人性的真正意义，他先后与佐佐木小次郎、宝藏院胤荣、柳生石舟斋等传奇人物相遇。武藏逐渐意识到，真正的强大并非杀戮，而是在不断磨练中超越自我。',
+
+    coverImg:'images/vagabond.png',
+    coverColor:'#5b3a24',
+
+    scores:{
+        bangumi:9.6,
+        douban:9.5,
+        mal:9.1
+    },
+
+    meta:{
+        type:'青年漫画',
+        volumes:37,
+        year:'1998–',
+        publisher:'讲谈社',
+        author:'井上雄彦',
+        rating:'R'
+    },
+
+    info:{
+        '连载年份':'1998–（长期休载）',
+        '卷数':'37卷',
+        '出版社':'讲谈社',
+        '作者':'井上雄彦',
+        '原作':'吉川英治《宫本武藏》',
+        '类型':'青年漫画（历史）'
+    },
+
+    cast:[
+        { name:'宫本武藏', role:'主角', cv:'（漫画原作）' },
+        { name:'佐佐木小次郎', role:'宿敌', cv:'（漫画原作）' },
+        { name:'阿通', role:'青梅竹马', cv:'（漫画原作）' },
+        { name:'泽庵宗彭', role:'僧人', cv:'（漫画原作）' }
+    ],
+
+    related:[
+        {title:'REAL',id:'real'},
+        {title:'灌篮高手',id:'slamdunk'}
+    ],
+
+    recommend:[
+        {title:'剑风传奇',id:'berserk'},
+        {title:'20世纪少年',id:'20thboys'}
+    ],
+
+    posts:[
+        {
+            id:'7',
+            title:'井上雄彦还会继续画《浪客行》吗？',
+            author:'Musashi',
+            votes:936,
+            comments:185,
+            time:'8小时前',
+            type:'manga'
+        }
+    ]
+},
+  'jjk-manga': {
+    id:'jjk-manga',
+    type:'manga',
+
+    title:'咒术回战',
+    sub:'Jujutsu Kaisen',
+
+    desc:'芥见下下创作的现代黑暗少年漫画，以高密度战斗、独特咒术体系与极快剧情节奏成为新时代少年Jump代表作品之一。',
+
+    story:'高中生虎杖悠仁为了拯救同伴，吞下特级咒物——两面宿傩的手指，成为宿傩的容器。随后进入东京都立咒术高等专门学校，与伏黑惠、钉崎野蔷薇一同学习咒术，在五条悟的指导下不断成长。随着涩谷事变、死灭回游等事件展开，整个咒术界陷入前所未有的混乱，人类与诅咒之间的战争最终迎来宿傩与五条悟、虎杖之间的最终决战。',
+
+    coverImg:'images/jjk-manga.png',
+    coverColor:'#26192d',
+
+    scores:{
+        bangumi:9.0,
+        douban:8.9,
+        mal:8.5
+    },
+
+    meta:{
+        type:'少年漫画',
+        volumes:27,
+        year:'2018–2024',
+        publisher:'集英社',
+        author:'芥见下下',
+        rating:'PG-13'
+    },
+
+    info:{
+        '连载年份':'2018–2024',
+        '卷数':'27卷',
+        '出版社':'集英社',
+        '作者':'芥见下下',
+        '连载杂志':'周刊少年Jump',
+        '类型':'少年漫画（战斗·奇幻）'
+    },
+
+    cast:[
+        { name:'虎杖悠仁', role:'主角', cv:'（漫画原作）' },
+        { name:'伏黑惠', role:'一级咒术师', cv:'（漫画原作）' },
+        { name:'五条悟', role:'最强咒术师', cv:'（漫画原作）' },
+        { name:'两面宿傩', role:'诅咒之王', cv:'（漫画原作）' }
+    ],
+
+    related:[
+        {title:'咒术回战 TV动画',id:'jjk'},
+        {title:'咒术回战0',id:'jjk-0'}
+    ],
+
+    recommend:[
+        {title:'全职猎人',id:'hxh'},
+        {title:'海贼王',id:'one-piece'}
+    ],
+
+    posts:[
+        {
+            id:'8',
+            title:'宿傩是不是Jump历史最强Boss？',
+            author:'CurseKing',
+            votes:1543,
+            comments:406,
+            time:'6小时前',
+            type:'manga'
+        }
+    ]
+},
+  '20thboys': {
+    id:'20thboys',
+    type:'manga',
+
+    title:'20世纪少年',
+    sub:'20th Century Boys',
+
+    desc:'浦泽直树最具代表性的悬疑漫画，以跨越数十年的时间线和层层反转的剧情，被誉为漫画史上最伟大的悬疑作品之一。',
+
+    story:'1969年，少年贤知与伙伴们幻想着世界毁灭后的未来，并将这些天马行空的故事记录在一本"预言之书"中。三十年后，一个自称"朋友"的神秘人物竟按照预言中的内容一步步实施计划，病毒、恐怖袭击、机器人、宗教组织接连出现，世界逐渐走向崩坏。为了阻止朋友统治世界，已经成为普通便利店老板的远藤贤知重新集结儿时伙伴，与跨越几十年的阴谋展开最终决战。在现实与回忆不断交织中，关于"朋友"真实身份的谜团也逐渐揭晓。',
+
+    coverImg:'images/20thboys.png',
+    coverColor:'#3b3526',
+
+    scores:{
+        bangumi:9.4,
+        douban:9.4,
+        mal:8.8
+    },
+
+    meta:{
+        type:'青年漫画',
+        volumes:22,
+        year:'1999–2006',
+        publisher:'小学馆',
+        author:'浦泽直树',
+        rating:'PG-13'
+    },
+
+    info:{
+        '连载年份':'1999–2006',
+        '卷数':'22卷',
+        '出版社':'小学馆',
+        '作者':'浦泽直树',
+        '续作':'《21世纪少年》',
+        '类型':'青年漫画（悬疑·科幻）'
+    },
+
+    cast:[
+        { name:'远藤贤知', role:'主角', cv:'（漫画原作）' },
+        { name:'朋友', role:'神秘反派', cv:'（漫画原作）' },
+        { name:'神乃', role:'贤知外甥女', cv:'（漫画原作）' },
+        { name:'阿区', role:'童年伙伴', cv:'（漫画原作）' }
+    ],
+
+    related:[
+        {title:'21世纪少年',id:'21stboys'}
+    ],
+
+    recommend:[
+        {title:'浪客行',id:'vagabond'},
+        {title:'剑风传奇',id:'berserk'}
+    ],
+
+    posts:[
+        {
+            id:'9',
+            title:'《20世纪少年》最后到底谁才是真正的朋友？',
+            author:'Kenji1999',
+            votes:846,
+            comments:173,
+            time:'1天前',
+            type:'manga'
+        }
+    ]
+},
+
+  // ── 游戏 ──────────────────────────────
+  'eldenring': {
+    id:'eldenring', type:'game',
+    title:'艾尔登法环', sub:'Elden Ring',
+    desc:'宫崎英高 × 乔治R.R.马丁联手构建，开放世界魂系动作RPG的巅峰之作。TGA 2022年度游戏，全球销量突破3000万。',
+    story:'褪色者降临交界地，失去了赐福，却带着重燃黄金树、成为艾尔登之王的使命。在广阔的开放世界中，遭遇神灵、探索秘境、与各路强者对决，逐渐揭开交界地的沉重历史与阴谋。玛莉卡女王的破碎，黄金律法的崩解，众神的堕落——每一块碎片都指向那个不可言说的秘密：缺席的神与永恒的伤。',
+    coverImg:'images/erd.png', coverColor:'#0d1a2e',
+    scores:{ bangumi:9.8, douban:9.5, mal:null },
+    meta:{ type:'动作RPG', platforms:'PC / PS4 / PS5 / Xbox', year:'2022', developer:'FromSoftware', director:'宫崎英高', rating:'R' },
+    info:{ '发售年份':'2022年2月25日', '平台':'PC / PS4/5 / Xbox', '开发商':'FromSoftware', '发行商':'万代南梦宫', '游戏类型':'开放世界动作RPG', '奖项':'TGA 2022 年度游戏' },
+    cast:[
+      { name:'玛莉卡女王', role:'神', cv:'（游戏角色）' },
+      { name:'拉达冈', role:'神将', cv:'（游戏角色）' },
+      { name:'梅莲娜', role:'引路人', cv:'（游戏角色）' },
+      { name:'芬尼尔', role:'锻冶神', cv:'（游戏角色）' }
+    ],
+    related:[ {title:'黑暗之魂 III',id:'ds3'}, {title:'只狼：影逝二度',id:'sekiro'} ],
+    recommend:[ {title:'女神异闻录5',id:'persona5'}, {title:'空洞骑士',id:'hollowknight'} ],
+    posts:[{id:'3',title:'你最喜欢的二次元游戏TOP10',author:'GameOtaku',votes:2341,comments:512,time:'1天前',type:'game'}]
+  },
+
+  'persona5': {
+    id:'persona5', type:'game',
+    title:'女神异闻录5', sub:'Persona 5 Royal',
+    desc:'心之怪盗团对抗腐败成年人的黑色青春物语，美术风格与配乐均属神作级别。JRPG史上最高分之作之一。',
+    story:'高中生主角因一次意外被记录在案，转学至东京后发现了"麦塔弗斯"——一个由人类欲望构成的认知世界。他与同学们组成"幽灵"怪盗团，入侵恶人的心理宫殿，夺取"心之怪盗"改变其扭曲认知。随着故事深入，背后有关命运与神明操控的更大阴谋逐渐浮现。',
+    coverImg:'images/5.png', coverColor:'#1a0d0d',
+    scores:{ bangumi:9.7, douban:9.4, mal:null },
+    meta:{ type:'回合制RPG', platforms:'PC / PS4 / Switch', year:'2016（Royal 2019）', developer:'Atlus', director:'橋野桂', rating:'M' },
+    info:{ '发售年份':'2016年（Royal版2019年）', '平台':'PS4 / PC / Switch / Xbox', '开发商':'Atlus', '发行商':'世嘉', '游戏类型':'回合制JRPG', '游戏时长':'约100小时' },
+    cast:[
+      { name:'雨宫莲（主角）', role:'幽灵队长', cv:'福山潤（动画版）' },
+      { name:'坂本龙司', role:'运动员', cv:'三木眞一郎（动画版）' },
+      { name:'高卷杏', role:'艺术家', cv:'水树奈々（动画版）' },
+      { name:'喜多川祐介', role:'画家', cv:'宮野真守（动画版）' }
+    ],
+    related:[ {title:'女神异闻录5 斗争',id:'p5s'}, {title:'女神异闻录4 黄金版',id:'p4g'} ],
+    recommend:[ {title:'艾尔登法环',id:'eldenring'}, {title:'空洞骑士',id:'hollowknight'} ],
+    posts:[{id:'3',title:'你最喜欢的二次元游戏TOP10',author:'GameOtaku',votes:2341,comments:512,time:'1天前',type:'game'}]
+  },
+
+  'hollowknight': {
+    id:'hollowknight', type:'game',
+    title:'空洞骑士', sub:'Hollow Knight',
+    desc:'独立工作室 Team Cherry 打造，黑暗梦幻昆虫世界里最精致的银河恶魔城体验。以极低的价格提供了业界最高质量的独立游戏体验。',
+    story:'虫国哈洛奈斯曾经繁荣，如今却陷入感染之瘴的笼罩。一位身份神秘的小骑士降临此地，独自穿越废弃的都城废墟、感染的蜂巢与古老的神殿，寻找真相。随着探索的深入，感染之源、空洞骑士的封印与黑色自我的本质逐渐揭晓——真相远比想象中更加沉重。',
+    coverImg:'images/hollow.png', coverColor:'#0d0d1a',
+    scores:{ bangumi:9.6, douban:9.5, mal:null },
+    meta:{ type:'银河恶魔城', platforms:'PC / Switch / PS4 / Xbox', year:'2017', developer:'Team Cherry', director:'William Pellen', rating:'E10+' },
+    info:{ '发售年份':'2017年2月', '平台':'PC / Switch / PS4 / Xbox', '开发商':'Team Cherry（3人团队）', '类型':'银河恶魔城（Metroidvania）', '游戏时长':'约40小时（本体）', '续作':'《丝之歌》开发中' },
+    cast:[
+      { name:'小骑士', role:'主角（无名）', cv:'（无台词）' },
+      { name:'Quirrel', role:'探险家', cv:'（无台词）' },
+      { name:'Hornet', role:'先驱者', cv:'（无台词）' }
+    ],
+    related:[ {title:'空洞骑士：丝之歌（开发中）',id:'silksong'} ],
+    recommend:[ {title:'艾尔登法环',id:'eldenring'}, {title:'女神异闻录5',id:'persona5'} ],
+    posts:[{id:'3',title:'你最喜欢的二次元游戏TOP10',author:'GameOtaku',votes:2341,comments:512,time:'1天前',type:'game'}]
+  },
+
+  'sekiro': {
+    id:'sekiro', type:'game',
+    title:'只狼：影逝二度', sub:'Sekiro: Shadows Die Twice',
+    desc:'战国日本背景下的硬核动作游戏，以架势系统和精准弹刀重新定义动作游戏体验。荣获 TGA 2019 年度游戏。',
+    story:'独臂忍者"狼"为了救回主人九郎，与苇名一心、弦一郎以及不死之力展开宿命般的战斗。在不断死亡与复活中，玩家逐渐揭开龙胤、不死与修罗结局背后的秘密。',
+    coverImg:'images/sekiro.png', coverColor:'#0d1a2e',
+    scores:{ bangumi:9.5, douban:9.3, mal:null},
+    meta:{ type:'类魂动作游戏', platforms:'PC / PS4 / Xbox', year:'2019', developer:'FromSoftware', director:'宫崎英高', rating:'M' },
+    info:{ '发售年份':'2019年2月25日', '平台':'PC / PS4/ Xbox', '开发商':'FromSoftware', '发行商':'万代南梦宫', '游戏类型':'开放世界动作RPG', '奖项':'TGA 2019年度游戏' },
+    cast:[
+      { name:'狼', role:'主角', cv:'（无）' },
+      { name:'久郎', role:'皇子', cv:'（无）' },
+      { name:'弦一郎', role:'苇名武士', cv:'（无）' },
+      { name:'一心', role:'剑圣', cv:'（无）' }
+    ],
+    related:[ {title:'黑暗之魂 III',id:'ds3'}, {title:'艾尔登法环',id:'eldenring'} ],
+    recommend:[ {title:'女神异闻录5',id:'persona5'}, {title:'空洞骑士',id:'hollowknight'} ],
+    posts:[{id:'5',title:'你最喜欢的二次元游戏TOP10',author:'GameOtaku',votes:2341,comments:512,time:'1天前',type:'game'}]
+  },
+'hades':{id:'hades',type:'game',
+    title:'哈迪斯',sub:'Hades',
+    desc:'Supergiant Games 打造的 RogueLike 神作，将动作战斗与叙事完美融合。',
+    story:'冥王之子扎格瑞斯不断尝试逃离冥界，每一次失败都会推动剧情发展，与众神及家人之间的关系逐渐发生变化。',
+    coverImg:'images/hades.png',
+    coverColor:'#3a1810',
+    scores:{bangumi:9.3,douban:9.2,mal:null},
+    meta:{type:'RogueLike ACT',platforms:'PC / Switch',year:'2020',developer:'Supergiant Games',director:'Greg Kasavin',rating:'T'},
+    info:{'发售年份':'2020','平台':'PC / Switch','开发商':'Supergiant Games','类型':'RogueLike','奖项':'多项年度独立游戏'},
+    cast:[
+        {name:'扎格瑞斯',role:'主角',cv:'Darren Korb'},
+        {name:'哈迪斯',role:'冥王',cv:'Logan Cunningham'}
+    ],
+    related:[],
+    recommend:[
+        {title:'空洞骑士',id:'hollowknight'},
+        {title:'只狼：影逝二度',id:'sekiro'}
+    ],
+    posts:[]
+},
+'p4g':{id:'p4g',type:'game',
+    title:'女神异闻录4 黄金版',sub:'Persona 4 Golden',
+    desc:'发生在稻羽市的小镇青春故事，被誉为 Persona 系列最温暖的一作。',
+    story:'转学生来到稻羽市后，与伙伴进入电视世界调查连续杀人事件，在一年四季的校园生活中建立羁绊。',
+    coverImg:'images/persona4.png',
+    coverColor:'#e0c33d',
+    scores:{bangumi:9.4,douban:9.2,mal:null},
+    meta:{type:'JRPG',platforms:'PC / Switch / PS4',year:'2008',developer:'Atlus',director:'桥野桂',rating:'T'},
+    info:{
+        '发售年份':'2008（Golden 2012）',
+        '平台':'PC / PS4 / Switch',
+        '开发商':'Atlus',
+        '游戏类型':'JRPG'
+    },
+    cast:[
+        {name:'鸣上悠',role:'主角',cv:'浪川大辅'},
+        {name:'花村阳介',role:'伙伴',cv:'森久保祥太郎'}
+    ],
+    related:[
+        {title:'女神异闻录5',id:'persona5'}
+    ],
+    recommend:[
+        {title:'女神异闻录5',id:'persona5'}
+    ],
+    posts:[]
+},
+'zelda-botw':{id:'zelda-botw',type:'game',
+    title:'塞尔达传说：旷野之息',
+    sub:'The Legend of Zelda: Breath of the Wild',
+    desc:'重新定义开放世界设计的划时代作品。',
+    story:'沉睡百年的林克醒来后，在海拉鲁大陆自由探索，最终挑战灾厄盖侬，拯救塞尔达公主。',
+    coverImg:'images/zelda.png',
+    coverColor:'#1b4032',
+    scores:{bangumi:9.3,douban:9.4,mal:null},
+    meta:{type:'开放世界动作冒险',platforms:'Switch',year:'2017',developer:'Nintendo',director:'藤林秀麿',rating:'E10+'},
+    info:{
+        '发售年份':'2017',
+        '平台':'Nintendo Switch',
+        '开发商':'Nintendo',
+        '游戏类型':'开放世界'
+    },
+    cast:[
+        {name:'林克',role:'主角',cv:'（无）'},
+        {name:'塞尔达',role:'公主',cv:'（无）'}
+    ],
+    related:[
+        {title:'王国之泪',id:'totk'}
+    ],
+    recommend:[
+        {title:'艾尔登法环',id:'eldenring'}
+    ],
+    posts:[]
+},
+'genshin':{id:'genshin',type:'game',
+    title:'原神',sub:'Genshin Impact',
+    desc:'开放世界二次元 RPG，玩家作为旅行者踏遍提瓦特七国。',
+    story:'旅行者寻找失散的亲人，在蒙德、璃月、稻妻、须弥、枫丹等国家不断揭开提瓦特世界的真相。',
+    coverImg:'images/ysqd.png',
+    coverColor:'#28455a',
+    scores:{bangumi:8.0,douban:8.5,mal:null},
+    meta:{
+        type:'开放世界RPG',
+        platforms:'PC / PS5 / iOS / Android',
+        year:'2020',
+        developer:'miHoYo',
+        director:'蔡浩宇',
+        rating:'T'
+    },
+    info:{
+        '发售年份':'2020',
+        '平台':'PC / PS5 / iOS / Android',
+        '开发商':'miHoYo',
+        '游戏类型':'开放世界 RPG'
+    },
+    cast:[
+        {name:'旅行者',role:'主角',cv:'多版本'},
+        {name:'派蒙',role:'向导',cv:'多多poi'}
+    ],
+    related:[],
+    recommend:[
+        {title:'塞尔达传说：旷野之息',id:'zelda-botw'}
+    ],
+    posts:[]
+},
+};
+// 推荐逻辑：同类型其他作品
+function getRecommends(work) {
+  if (work.recommend) return work.recommend;
+  return Object.values(WORKS)
+    .filter(w => w.id !== work.id && w.type === work.type)
+    .slice(0, 3)
+    .map(w => ({ title: w.title, id: w.id }));
+}
+
+let curWork = null;
+
+window.addEventListener('DOMContentLoaded', () => {
+  const p = new URLSearchParams(location.search);
+  const id = p.get('id') || 'aot';
+  curWork = WORKS[id] || WORKS['aot'];
+  renderWork();
+
+  // 高亮导航
+  const navMap = { anime:'nav-anime', manga:'nav-manga', game:'nav-game' };
+  const navId = navMap[curWork.type];
+  if (navId) document.getElementById(navId)?.classList.add('active');
+
+  // 收藏状态
+  const favBtn = document.getElementById('fav-btn');
+  if (Favorites.has(curWork.id)) {
+    favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i> 已收藏';
+    favBtn.classList.add('faved');
+  }
+
+  // 搜索跳转
+  document.getElementById('header-search').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const q = e.target.value.trim();
+      if (q) location.href = 'anime.html?search=' + encodeURIComponent(q);
+    }
+  });
+});
+
+function renderWork() {
+  const w = curWork;
+  document.title = w.title + ' — Anime Nexus';
+
+  const typeIcon  = { anime:'fa-tv', manga:'fa-book-open', game:'fa-gamepad' };
+  const typeLabel = { anime:'动画', manga:'漫画', game:'游戏' };
+  const backUrl   = { anime:'anime.html', manga:'manga.html', game:'game.html' }[w.type] || 'anime.html';
+
+  // Hero 封面（图片优先，无图片则色块）
+  const coverEl = document.getElementById('work-cover');
+  if (w.coverImg) {
+    coverEl.style.backgroundImage = `url('${w.coverImg}')`;
+    coverEl.style.backgroundSize = 'cover';
+    coverEl.style.backgroundPosition = 'center';
+    coverEl.innerHTML = '';
+    coverEl.classList.add('has-img');
+  } else {
+    coverEl.style.background = w.coverColor || '#2a2a3a';
+    coverEl.innerHTML = `<i class="fa-solid ${typeIcon[w.type]||'fa-star'}"></i>`;
+  }
+
+  // Hero 背景模糊层
+  const heroBg = document.getElementById('work-hero-bg');
+  if (w.coverImg) {
+    heroBg.style.backgroundImage = `url('${w.coverImg}')`;
+    heroBg.style.backgroundSize = 'cover';
+    heroBg.style.backgroundPosition = 'center';
+    heroBg.style.filter = 'blur(18px) brightness(0.35) saturate(1.5)';
+    heroBg.style.transform = 'scale(1.08)';
+  } else {
+    heroBg.style.background = w.coverColor || '#1a1a2e';
+  }
+
+  document.getElementById('work-title').textContent = w.title;
+  document.getElementById('work-title-sub').textContent = w.sub || '';
+  document.getElementById('work-desc').textContent = w.desc || '';
+  document.getElementById('work-breadcrumb').innerHTML =
+    `<a href="world.html">首页</a><span>/</span><a href="${backUrl}">${typeLabel[w.type]}</a><span>/</span><span>${w.title}</span>`;
+  document.getElementById('work-tags-row').innerHTML =
+    `<span class="tag ${w.type}">${typeLabel[w.type]}</span>` +
+    (w.meta.type ? `<span class="work-meta-tag">${w.meta.type}</span>` : '') +
+    (w.meta.year ? `<span class="work-meta-tag">${w.meta.year}</span>` : '');
+
+  // Meta 网格（取前4条）
+  const metaKeyMap = { type:'类型',episodes:'集数',volumes:'卷数',year:'年份',studio:'制作',director:'导演',author:'原作',publisher:'出版社',developer:'开发商',platforms:'平台',rating:'分级' };
+  const metaItems = Object.entries(w.meta).slice(0,4)
+    .map(([k,v]) => `<div class="work-meta-item"><div class="wmi-label">${metaKeyMap[k]||k}</div><div class="wmi-val">${v||'—'}</div></div>`)
+    .join('');
+  document.getElementById('work-meta-grid').innerHTML = metaItems;
+
+  // 评分面板
+  const s = w.scores;
+  const validScores = [s.bangumi, s.douban, s.mal].filter(Boolean);
+  const avg = validScores.reduce((a,b) => a+b, 0) / validScores.length;
+  document.getElementById('work-score-panel').innerHTML = `
+    <div class="wsp-avg">${avg.toFixed(1)}</div>
+    <div class="wsp-label">综合评分</div>
+    <div class="wsp-rows">
+      <div class="wsp-row"><span>Bangumi</span><strong>${s.bangumi||'—'}</strong></div>
+      <div class="wsp-row"><span>豆瓣</span><strong>${s.douban||'—'}</strong></div>
+      <div class="wsp-row"><span>MAL</span><strong>${s.mal||'—'}</strong></div>
+    </div>`;
+
+  // 剧情简介
+  document.getElementById('work-story').innerHTML = `<p>${w.story}</p>`;
+
+  // 评分条
+  const bars = [['Bangumi', s.bangumi, 10], ['豆瓣', s.douban, 10], ['MAL', s.mal, 10]];
+  document.getElementById('score-bars').innerHTML = bars.filter(b=>b[1]).map(([name,val]) => `
+    <div class="score-bar-row">
+      <span class="score-bar-label">${name}</span>
+      <div class="score-bar-track"><div class="score-bar-fill" style="width:${(val/10)*100}%"></div></div>
+      <span class="score-bar-val">${val}</span>
+    </div>`).join('');
+  document.getElementById('score-detail').innerHTML =
+    `<div class="sd-item"><div class="sd-num">${avg.toFixed(1)}</div><div class="sd-label">综合均分</div></div>` +
+    `<div class="sd-item"><div class="sd-num">${validScores.length}</div><div class="sd-label">评分来源</div></div>` +
+    `<div class="sd-item"><div class="sd-num">${s.bangumi||'—'}</div><div class="sd-label">Bangumi</div></div>`;
+
+  // 角色列表
+  if (w.cast && w.cast.length) {
+    document.getElementById('section-cast').style.display = '';
+    document.getElementById('cast-grid').innerHTML = w.cast.map(c => `
+      <div class="cast-card">
+        <div class="cast-avatar">${c.name[0]}</div>
+        <div class="cast-info">
+          <div class="cast-name">${c.name}</div>
+          <div class="cast-role">${c.role}</div>
+          <div class="cast-cv">CV：${c.cv}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  // 基本信息
+  document.getElementById('info-list').innerHTML =
+    Object.entries(w.info).map(([k,v]) => `<div class="info-row"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`).join('');
+
+  // 同系列
+  document.getElementById('related-works').innerHTML =
+    (w.related||[]).map(r => `<a href="work-detail.html?id=${r.id}" class="related-item"><i class="fa-solid fa-link" style="font-size:10px;opacity:0.5;margin-right:6px"></i>${r.title}</a>`).join('');
+
+  // 你可能喜欢
+  const recommends = getRecommends(w);
+  document.getElementById('recommend-works').innerHTML =
+    recommends.map(r => {
+      const rw = WORKS[r.id];
+      const icon = rw ? { anime:'fa-tv', manga:'fa-book-open', game:'fa-gamepad' }[rw.type] : 'fa-star';
+      return `<a href="work-detail.html?id=${r.id}" class="related-item"><i class="fa-solid ${icon}" style="font-size:10px;opacity:0.5;margin-right:6px"></i>${r.title}</a>`;
+    }).join('');
+
+  // 社区帖子
+  document.getElementById('work-posts').innerHTML = (w.posts||[]).map(p => `
+    <a href="post-detail.html?demo=${p.id}" class="work-post-item">
+      <div class="wp-tag"><span class="tag ${p.type||'anime'}" style="font-size:10px">${{anime:'动画',manga:'漫画',game:'游戏'}[p.type]||'动画'}</span></div>
+      <div class="wp-title">${p.title}</div>
+      <div class="wp-meta">${p.author} · ${p.time} · ❤️${p.votes} · 💬${p.comments}</div>
+    </a>`).join('');
+}
+
+function toggleFav() {
+  if (!Auth.isLoggedIn()) { showToast('请先登录后收藏'); setTimeout(()=>location.href='login.html',1200); return; }
+  const added = Favorites.toggle({ id: curWork.id, title: curWork.title, type: curWork.type });
+  const btn = document.getElementById('fav-btn');
+  btn.innerHTML = added ? '<i class="fa-solid fa-bookmark"></i> 已收藏' : '<i class="fa-solid fa-bookmark"></i> 收藏';
+  added ? btn.classList.add('faved') : btn.classList.remove('faved');
+}
+
+function shareWork() {
+  if (navigator.clipboard) navigator.clipboard.writeText(location.href);
+  showToast('✓ 链接已复制');
+}
+</script>
+</body>
+</html>

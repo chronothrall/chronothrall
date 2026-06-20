@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游戏 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/anime.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <nav class="nav">
+        <a href="world.html">首页</a>
+        <a href="anime.html">动画</a>
+        <a href="manga.html">漫画</a>
+        <a href="game.html" class="active">游戏</a>
+        <a href="news.html">新闻</a>
+        <a href="museum.html">博物馆</a>
+        <a href="community.html">社区</a>
+      </nav>
+      <div class="search">
+        <i class="fa-solid fa-search"></i>
+        <input type="text" id="main-search" placeholder="搜索游戏、开发商、角色...">
+      </div>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="inner">
+      <div class="breadcrumb"><a href="world.html">首页</a><span>/</span><span>游戏</span></div>
+      <h1><i class="fa-solid fa-gamepad"></i> 游戏数据库</h1>
+      <p>综合 Bangumi · 豆瓣 · Steam 三平台评分 · 收录 76,204 款作品</p>
+    </div>
+  </div>
+
+  <div class="inner">
+    <div class="page-section" style="padding-bottom:0">
+      <div class="filter-bar">
+        <span class="filter-label">平台</span>
+        <span class="filter-chip active" data-filter="platform" data-val="all">全部</span>
+        <span class="filter-chip" data-filter="platform" data-val="PC">PC</span>
+        <span class="filter-chip" data-filter="platform" data-val="PS5">PS5</span>
+        <span class="filter-chip" data-filter="platform" data-val="Switch">Switch</span>
+        <span class="filter-chip" data-filter="platform" data-val="移动端">移动端</span>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">类型</span>
+        <span class="filter-chip active" data-filter="genre" data-val="all">全部</span>
+        <span class="filter-chip" data-filter="genre" data-val="RPG">RPG</span>
+        <span class="filter-chip" data-filter="genre" data-val="ACT">ACT</span>
+        <span class="filter-chip" data-filter="genre" data-val="AVG">AVG</span>
+        <span class="filter-chip" data-filter="genre" data-val="二次元">二次元</span>
+        <span class="filter-chip" data-filter="genre" data-val="独立">独立</span>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">排序</span>
+        <span class="filter-chip active" data-filter="sort" data-val="score">综合评分</span>
+        <span class="filter-chip" data-filter="sort" data-val="newest">最新发售</span>
+        <span class="filter-chip" data-filter="sort" data-val="fav">最多收藏</span>
+      </div>
+    </div>
+
+    <div class="page-section">
+      <div class="list-header">
+        <div class="section-title"><i class="fa-solid fa-list"></i> 游戏列表</div>
+        <span class="result-count" id="result-count">共 76,204 款</span>
+      </div>
+
+      <div id="no-result" style="display:none;text-align:center;padding:60px 0;color:rgba(255,255,255,0.3)">
+        <i class="fa-solid fa-magnifying-glass" style="font-size:40px;margin-bottom:16px;display:block"></i>
+        <p>没有找到相关游戏，换个关键词试试</p>
+      </div>
+
+      <div class="anime-list" id="game-list"></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus · 综合 Bangumi · 豆瓣 · Steam 评分数据</div></footer>
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+const GAME_DATA = [
+  { id:'eldenring',   rank:1, title:'艾尔登法环',   jp:'Elden Ring',            genre:['RPG','ACT'],  platform:['PC','PS5'],           year:'2022', dev:'FromSoftware',   fav:88100,
+    scores:{ bangumi:9.8, douban:9.5, steam:96 }, avg:9.7, desc:'宫崎英高×乔治R.R.马丁联手构建，开放世界魂系动作RPG的巅峰之作。TGA 2022年度游戏。', cover:'images/erd.png' },
+  { id:'persona5',    rank:2, title:'女神异闻录5',   jp:'Persona 5 Royal',       genre:['RPG','AVG'],  platform:['PC','PS5','Switch'],  year:'2016', dev:'Atlus',          fav:72400,
+    scores:{ bangumi:9.7, douban:9.4, steam:97 }, avg:9.6, desc:'心之怪盗团对抗腐败成年人的黑色青春物语，美术风格与配乐均属神作级别。', cover:'images/5.png' },
+  { id:'hollowknight',rank:3, title:'空洞骑士',      jp:'Hollow Knight',         genre:['ACT','独立'], platform:['PC','Switch','PS5'],  year:'2017', dev:'Team Cherry',    fav:63200,
+    scores:{ bangumi:9.6, douban:9.5, steam:98 }, avg:9.6, desc:'3人独立工作室打造，黑暗梦幻昆虫世界里最精致的银河恶魔城体验。', cover:'images/hollow.png' },
+  { id:'genshin',     rank:4, title:'原神',          jp:'Genshin Impact',        genre:['RPG','二次元'],platform:['PC','PS5','移动端'],  year:'2020', dev:'miHoYo',         fav:95000,
+    scores:{ bangumi:8.0, douban:8.5, steam:null }, avg:8.3, desc:'开放世界二次元RPG，提瓦特大陆上跨越元素与国度的旅行者史诗。', cover:'images/ysqd.png' },
+  { id:'sekiro',      rank:5, title:'只狼：影逝二度', jp:'Sekiro: Shadows Die Twice', genre:['ACT'], platform:['PC','PS5'],            year:'2019', dev:'FromSoftware',   fav:55400,
+    scores:{ bangumi:9.5, douban:9.3, steam:95 }, avg:9.4, desc:'忍者战国日本，招架与反击为核心，无法保存遁入黑暗的绝美动作设计。', cover:'images/sekiro.png' },
+  { id:'hades',       rank:6, title:'哈迪斯',        jp:'Hades',                 genre:['ACT','独立'], platform:['PC','Switch'],         year:'2020', dev:'Supergiant',     fav:48900,
+    scores:{ bangumi:9.3, douban:9.2, steam:97 }, avg:9.3, desc:'肉鸽动作与叙事完美融合，扎格瑞斯一次次从冥界出逃，每次死亡都是剧情进展。', cover:'images/hades.png' },
+  { id:'p4g',         rank:7, title:'女神异闻录4 黄金版', jp:'Persona 4 Golden',  genre:['RPG','AVG'],  platform:['PC','PS5','Switch'],  year:'2008', dev:'Atlus',          fav:41300,
+    scores:{ bangumi:9.4, douban:9.2, steam:97 }, avg:9.3, desc:'稻叶市的夏天，电视世界与青春友情，Atlus最温暖的一部作品。', cover:'images/persona4.png' },
+  { id:'zelda-botw',  rank:8, title:'塞尔达传说：旷野之息', jp:'Breath of the Wild', genre:['RPG','ACT'], platform:['Switch'],            year:'2017', dev:'Nintendo',      fav:67800,
+    scores:{ bangumi:9.3, douban:9.4, steam:null }, avg:9.4, desc:'重新定义开放世界的划时代之作，海拉鲁大陆上自由探索的终极体验。', cover:'images/zelda.png' },
+];
+
+const PAGE_SIZE = 6;
+let curPage=1, filtered=[...GAME_DATA];
+let activeFilters={platform:'all',genre:'all',sort:'score'};
+let searchQuery='';
+
+function applyFilters() {
+  let result=[...GAME_DATA];
+  if(searchQuery){const q=searchQuery.toLowerCase();result=result.filter(g=>g.title.toLowerCase().includes(q)||g.jp.toLowerCase().includes(q)||g.dev.toLowerCase().includes(q));}
+  if(activeFilters.platform!=='all') result=result.filter(g=>g.platform.includes(activeFilters.platform));
+  if(activeFilters.genre!=='all')    result=result.filter(g=>g.genre.includes(activeFilters.genre));
+  if(activeFilters.sort==='score')   result.sort((a,b)=>b.avg-a.avg);
+  if(activeFilters.sort==='newest')  result.sort((a,b)=>b.year-a.year);
+  if(activeFilters.sort==='fav')     result.sort((a,b)=>b.fav-a.fav);
+  filtered=result; curPage=1; render();
+}
+
+function render() {
+  const list=document.getElementById('game-list'), noRes=document.getElementById('no-result'), countEl=document.getElementById('result-count');
+  if(!filtered.length){list.innerHTML='';noRes.style.display='block';countEl.textContent='0 个结果';document.getElementById('pagination').innerHTML='';return;}
+  noRes.style.display='none';
+  const total=filtered.length, totalPages=Math.ceil(total/PAGE_SIZE);
+  const pageData=filtered.slice((curPage-1)*PAGE_SIZE,curPage*PAGE_SIZE);
+  countEl.textContent=searchQuery?`找到 ${total} 款`:`共 ${total} 款`;
+  list.innerHTML=pageData.map((g,i)=>{
+    const rank=(curPage-1)*PAGE_SIZE+i+1;
+    const coverStyle=g.cover?`style="background-image:url('${g.cover}');background-size:cover;background-position:center;"`:`style="background:linear-gradient(135deg,rgba(79,163,255,0.15),rgba(79,255,160,0.1))"`;
+    const steamScore=g.scores.steam?`${g.scores.steam}%`:'—';
+    return `
+    <div class="anime-row glass-card">
+      <div class="anime-rank">${rank}</div>
+      <div class="game-cover" ${coverStyle}>${!g.cover?`<div class="cover-placeholder"><i class="fa-solid fa-gamepad"></i></div>`:''}</div>
+      <div class="anime-info">
+        <div class="anime-tags"><span class="tag game">${g.genre[0]}</span><span class="tag-plain">${g.year}</span><span class="tag-plain">${g.platform.join(' / ')}</span></div>
+        <h3 class="anime-title">${g.title} <span class="jp">${g.jp}</span></h3>
+        <p class="anime-desc">${g.desc}</p>
+        <div class="anime-meta">
+          <span><i class="fa-solid fa-building"></i> ${g.dev}</span>
+          <span><i class="fa-solid fa-calendar"></i> ${g.year}年</span>
+        </div>
+      </div>
+      <div class="anime-scores">
+        <div class="score-breakdown">
+          <div class="score-row"><span>Bangumi</span><strong>${g.scores.bangumi}</strong></div>
+          <div class="score-row"><span>豆瓣</span><strong>${g.scores.douban}</strong></div>
+          <div class="score-row"><span>Steam</span><strong>${steamScore}</strong></div>
+        </div>
+        <div class="score-avg">${g.avg.toFixed(1)}</div>
+        <div class="score-label">综合评分</div>
+        <div class="anime-actions">
+          <a class="btn-pink" href="#" onclick="handleFav(event,'${g.id}','${g.title}','game')">收藏</a>
+          <a class="btn-ghost" href="work-detail.html?id=${g.id}">详情</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages){
+  const pg=document.getElementById('pagination');
+  if(totalPages<=1){pg.innerHTML='';return;}
+  let html='';
+  if(curPage>1)html+=`<span class="page-btn" onclick="goPage(${curPage-1})"><i class="fa-solid fa-chevron-left"></i></span>`;
+  getPaginRange(curPage,totalPages).forEach(p=>{
+    if(p==='…')html+=`<span class="page-dots">…</span>`;
+    else html+=`<span class="page-btn${p===curPage?' active':''}" onclick="goPage(${p})">${p}</span>`;
+  });
+  if(curPage<totalPages)html+=`<span class="page-btn" onclick="goPage(${curPage+1})"><i class="fa-solid fa-chevron-right"></i></span>`;
+  pg.innerHTML=html;
+}
+function getPaginRange(cur,total){
+  if(total<=7)return Array.from({length:total},(_,i)=>i+1);
+  const r=[1];if(cur>3)r.push('…');
+  for(let i=Math.max(2,cur-1);i<=Math.min(total-1,cur+1);i++)r.push(i);
+  if(cur<total-2)r.push('…');r.push(total);return r;
+}
+function goPage(p){curPage=p;render();window.scrollTo({top:300,behavior:'smooth'});}
+function handleFav(e,id,title,type){
+  e.preventDefault();
+  if(!Auth.isLoggedIn()){showToast('请先登录后再收藏');setTimeout(()=>location.href='login.html',1200);return;}
+  Favorites.toggle({id,title,type});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const urlQ=new URLSearchParams(location.search).get('search');
+  if(urlQ){searchQuery=urlQ;document.getElementById('main-search').value=urlQ;}
+  const searchInput=document.getElementById('main-search');
+  let timer;
+  searchInput.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(()=>{searchQuery=searchInput.value.trim();applyFilters();},300);});
+  searchInput.addEventListener('keydown',e=>{if(e.key==='Enter'){searchQuery=searchInput.value.trim();applyFilters();}});
+  document.querySelectorAll('.filter-chip[data-filter]').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      document.querySelectorAll(`.filter-chip[data-filter="${chip.dataset.filter}"]`).forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilters[chip.dataset.filter]=chip.dataset.val;
+      applyFilters();
+    });
+  });
+  applyFilters();
+});
+</script>
+</body>
+</html>

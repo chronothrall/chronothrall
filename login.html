@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登录 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <div class="login-wrap">
+
+    <div class="login-deco">
+      <div class="deco-quote">
+        <div class="deco-icon"><i class="fa-solid fa-star"></i></div>
+        <h2>"每一部作品<br>都是一个宇宙"</h2>
+        <p>加入 Anime Nexus，与 12 万名同好一起评分、讨论、收藏。</p>
+      </div>
+      <div class="deco-stats">
+        <div class="deco-stat"><strong>128,456</strong><span>部动画</span></div>
+        <div class="deco-stat"><strong>98,321</strong><span>部漫画</span></div>
+        <div class="deco-stat"><strong>76,204</strong><span>款游戏</span></div>
+      </div>
+    </div>
+
+    <div class="login-form-wrap glass-card">
+
+      <div class="form-tabs">
+        <button class="form-tab active" id="tab-login" onclick="switchTab('login')">登录</button>
+        <button class="form-tab" id="tab-reg" onclick="switchTab('register')">注册</button>
+        <div class="tab-indicator" id="tab-indicator"></div>
+      </div>
+
+      <!-- 登录 -->
+      <div class="form-body" id="form-login">
+        <div class="field-group">
+          <label>邮箱 / 用户名</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="login-name" placeholder="输入你的邮箱或用户名">
+          </div>
+        </div>
+        <div class="field-group">
+          <label>密码</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="pw-login" placeholder="输入密码">
+            <i class="fa-solid fa-eye toggle-pw" onclick="togglePw('pw-login',this)"></i>
+          </div>
+        </div>
+        <div class="form-row-between">
+          <label class="remember"><input type="checkbox"> 记住我</label>
+          <a href="#" class="forgot">忘记密码？</a>
+        </div>
+        <div class="field-error" id="login-error"></div>
+        <button class="btn-pink submit-btn" onclick="doLogin()">登录</button>
+        <div class="divider"><span>或通过第三方登录</span></div>
+        <div class="social-btns">
+          <button class="social-btn" onclick="socialLogin('Google')"><i class="fa-brands fa-google"></i> Google</button>
+          <button class="social-btn" onclick="socialLogin('GitHub')"><i class="fa-brands fa-github"></i> GitHub</button>
+          <button class="social-btn" onclick="socialLogin('Twitter')"><i class="fa-brands fa-twitter"></i> Twitter</button>
+        </div>
+      </div>
+
+      <!-- 注册 -->
+      <div class="form-body hidden" id="form-register">
+        <div class="field-group">
+          <label>用户名</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-at"></i>
+            <input type="text" id="reg-name" placeholder="3-20个字符">
+          </div>
+        </div>
+        <div class="field-group">
+          <label>邮箱</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="reg-email" placeholder="用于接收验证邮件">
+          </div>
+        </div>
+        <div class="field-group">
+          <label>密码</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="pw-reg" placeholder="至少8位">
+            <i class="fa-solid fa-eye toggle-pw" onclick="togglePw('pw-reg',this)"></i>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>确认密码</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="pw-reg2" placeholder="再次输入密码">
+            <i class="fa-solid fa-eye toggle-pw" onclick="togglePw('pw-reg2',this)"></i>
+          </div>
+        </div>
+        <label class="remember" style="margin-bottom:4px">
+          <input type="checkbox" id="agree"> 我已阅读并同意 <a href="#" class="forgot">用户协议</a>
+        </label>
+        <div class="field-error" id="reg-error"></div>
+        <button class="btn-pink submit-btn" onclick="doRegister()">创建账号</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+function switchTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('form-login').classList.toggle('hidden', !isLogin);
+  document.getElementById('form-register').classList.toggle('hidden', isLogin);
+  document.getElementById('tab-login').classList.toggle('active', isLogin);
+  document.getElementById('tab-reg').classList.toggle('active', !isLogin);
+  document.getElementById('tab-indicator').style.transform = isLogin ? 'translateX(0)' : 'translateX(100%)';
+}
+
+function togglePw(id, el) {
+  const inp = document.getElementById(id);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  el.classList.toggle('fa-eye'); el.classList.toggle('fa-eye-slash');
+}
+
+function setError(id, msg) { document.getElementById(id).textContent = msg; }
+
+function doLogin() {
+  const name = document.getElementById('login-name').value.trim();
+  const pw = document.getElementById('pw-login').value;
+  if (!name) { setError('login-error','请输入用户名或邮箱'); return; }
+  if (!pw)   { setError('login-error','请输入密码'); return; }
+  setError('login-error','');
+  Auth.login(name);
+  showToast('✓ 登录成功，欢迎回来 ' + name + '！');
+  setTimeout(() => {
+    const back = new URLSearchParams(location.search).get('back');
+    location.href = back || 'world.html';
+  }, 1200);
+}
+
+function doRegister() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pw = document.getElementById('pw-reg').value;
+  const pw2 = document.getElementById('pw-reg2').value;
+  const agree = document.getElementById('agree').checked;
+  if (!name || name.length < 3) { setError('reg-error','用户名至少3个字符'); return; }
+  if (!email.includes('@')) { setError('reg-error','请输入有效邮箱'); return; }
+  if (pw.length < 8) { setError('reg-error','密码至少8位'); return; }
+  if (pw !== pw2) { setError('reg-error','两次密码不一致'); return; }
+  if (!agree) { setError('reg-error','请先阅读并同意用户协议'); return; }
+  setError('reg-error','');
+  Auth.login(name);
+  showToast('✓ 注册成功，欢迎加入！');
+  setTimeout(() => location.href = 'world.html', 1200);
+}
+
+function socialLogin(provider) {
+  const fakeName = provider + '_User' + Math.floor(Math.random()*9999);
+  Auth.login(fakeName);
+  showToast('✓ 通过 ' + provider + ' 登录成功');
+  setTimeout(() => location.href = 'world.html', 1200);
+}
+</script>
+</body>
+</html>

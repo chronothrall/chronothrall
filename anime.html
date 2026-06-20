@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动画 — Anime Nexus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/anime.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="navbar">
+    <div class="inner navbar-inner">
+      <a href="world.html" class="logo"><div class="logo-box">A</div>Anime <span>Nexus</span></a>
+      <nav class="nav">
+        <a href="world.html">首页</a>
+        <a href="anime.html" class="active">动画</a>
+        <a href="manga.html">漫画</a>
+        <a href="game.html">游戏</a>
+        <a href="news.html">新闻</a>
+        <a href="museum.html">博物馆</a>
+        <a href="community.html">社区</a>
+      </nav>
+      <div class="search">
+        <i class="fa-solid fa-search"></i>
+        <input type="text" id="main-search" placeholder="搜索动画、人物、声优...">
+      </div>
+      <div id="nav-user-area"></div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="inner">
+      <div class="breadcrumb"><a href="world.html">首页</a><span>/</span><span>动画</span></div>
+      <h1><i class="fa-solid fa-tv"></i> 动画数据库</h1>
+      <p>综合 Bangumi · 豆瓣 · MAL 三平台评分 · 收录 128,456 部作品</p>
+    </div>
+  </div>
+
+  <div class="inner">
+    <div class="page-section" style="padding-bottom:0">
+      <div class="filter-bar">
+        <span class="filter-label">类型</span>
+        <span class="filter-chip active" data-filter="type" data-val="all">全部</span>
+        <span class="filter-chip" data-filter="type" data-val="TV">TV</span>
+        <span class="filter-chip" data-filter="type" data-val="剧场版">剧场版</span>
+        <span class="filter-chip" data-filter="type" data-val="OVA">OVA</span>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">题材</span>
+        <span class="filter-chip active" data-filter="genre" data-val="all">全部</span>
+        <span class="filter-chip" data-filter="genre" data-val="热血">热血</span>
+        <span class="filter-chip" data-filter="genre" data-val="奇幻">奇幻</span>
+        <span class="filter-chip" data-filter="genre" data-val="日常">日常</span>
+        <span class="filter-chip" data-filter="genre" data-val="悬疑">悬疑</span>
+        <span class="filter-chip" data-filter="genre" data-val="恋爱">恋爱</span>
+        <span class="filter-chip" data-filter="genre" data-val="机甲">机甲</span>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">排序</span>
+        <span class="filter-chip active" data-filter="sort" data-val="score">综合评分</span>
+        <span class="filter-chip" data-filter="sort" data-val="newest">最新上线</span>
+        <span class="filter-chip" data-filter="sort" data-val="fav">最多收藏</span>
+      </div>
+    </div>
+
+    <div class="page-section">
+      <div class="list-header">
+        <div class="section-title"><i class="fa-solid fa-list"></i> 动画列表</div>
+        <span class="result-count" id="result-count">共 128,456 部</span>
+      </div>
+
+      <!-- 搜索无结果提示 -->
+      <div id="no-result" style="display:none;text-align:center;padding:60px 0;color:rgba(255,255,255,0.3)">
+        <i class="fa-solid fa-magnifying-glass" style="font-size:40px;margin-bottom:16px;display:block"></i>
+        <p>没有找到相关动画，换个关键词试试</p>
+      </div>
+
+      <div class="anime-list" id="anime-list"></div>
+
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus · 综合 Bangumi · 豆瓣 · MAL 评分数据</div></footer>
+</div>
+
+<script src="js/navbar.js"></script>
+<script>
+// ══════════════════════════════
+// 动画数据
+// ══════════════════════════════
+const ANIME_DATA = [
+  { id:'aot',       rank:1,  title:'进击的巨人',   jp:'Shingeki no Kyojin',         type:'TV',   genre:['热血','悬疑'],  year:'2013–2023', studio:'WIT Studio / MAPPA', fav:98432,
+    scores:{ bangumi:9.8, douban:9.7, mal:9.0 }, avg:9.5, desc:'人类与巨人的生存之战，一部关于自由与枷锁的史诗。',
+    cover:'images/aot.png', tag:'anime', director:'荒木哲郎', episodes:75 },
+  { id:'frieren',   rank:2,  title:'葬送的芙莉莲',  jp:"Frieren: Beyond Journey's End", type:'TV', genre:['奇幻'],        year:'2023',      studio:'Madhouse',            fav:87341,
+    scores:{ bangumi:9.6, douban:9.4, mal:9.3 }, avg:9.4, desc:'魔法师芙莉莲踏上追忆之旅，探寻何为"人类的一生"。',
+    cover:'images/fll.png',  tag:'anime', director:'斋藤圭一郎', episodes:28 },
+  { id:'jjk',       rank:3,  title:'咒术回战',     jp:'Jujutsu Kaisen',              type:'TV',   genre:['热血'],        year:'2020–',     studio:'MAPPA',               fav:72189,
+    scores:{ bangumi:9.2, douban:9.1, mal:8.6 }, avg:9.0, desc:'虎杖悠仁吞入诅咒之王手指，踏入咒术师的黑暗世界。',
+    cover:'images/zshz.png', tag:'anime', director:'朴性厚', episodes:47 },
+  { id:'kimetsu',   rank:4,  title:'鬼灭之刃',     jp:'Demon Slayer',                type:'TV',   genre:['热血'],        year:'2019–2021', studio:'ufotable',            fav:65210,
+    scores:{ bangumi:9.1, douban:9.0, mal:8.5 }, avg:8.9, desc:'竈门炭治郎踏上斩鬼之路，誓还妹妹人形。',
+    cover:'images/gmzr.png', tag:'anime', director:'外崎春雄', episodes:26 },
+  { id:'spyfamily', rank:5,  title:'间谍过家家',    jp:'SPY×FAMILY',                 type:'TV',   genre:['恋爱','日常'],  year:'2022–',     studio:'WIT × CloverWorks',   fav:53409,
+    scores:{ bangumi:8.9, douban:9.0, mal:8.5 }, avg:8.8, desc:'间谍、杀手、读心术少女组成的假家庭，展开笑中带泪的任务。',
+    cover:'images/spy.png',  tag:'anime', director:'古贺一臣', episodes:37 },
+  { id:'code-geass',rank:6,  title:'反叛的鲁路修',  jp:'Code Geass',                  type:'TV',   genre:['热血','机甲'],  year:'2006–2008', studio:'Sunrise',             fav:48200,
+    scores:{ bangumi:9.4, douban:9.2, mal:8.7 }, avg:9.1, desc:'以"绝对命令"之眼颠覆世界，最强智谋机甲动画。',
+    cover:'images/code-geass.png', tag:'anime', director:'谷口悟朗', episodes:50 },
+  { id:'cowboy-bebop',rank:7,title:'星际牛仔',    jp:'Cowboy Bebop',                type:'TV',   genre:['悬疑'],        year:'1998',      studio:'Sunrise',             fav:41050,
+    scores:{ bangumi:9.5, douban:9.3, mal:8.8 }, avg:9.2, desc:'爵士乐与太空赏金猎人，融合西部与科幻的不朽经典。',
+    cover:'images/cowboy-bebop.png', tag:'anime', director:'渡边信一郎', episodes:26 },
+  { id:'mononoke',  rank:8,  title:'幽灵公主',     jp:'Princess Mononoke',           type:'剧场版',genre:['奇幻'],       year:'1997',      studio:'Studio Ghibli',       fav:38890,
+    scores:{ bangumi:9.6, douban:9.5, mal:8.7 }, avg:9.3, desc:'人类文明与自然神灵之间的史诗对决，宫崎骏代表作。',
+    cover:'images/mononoke.png', tag:'anime', director:'宫崎骏', episodes:1 },
+  { id:'spirited',  rank:9,  title:'千与千寻',     jp:'Spirited Away',               type:'剧场版',genre:['奇幻'],       year:'2001',      studio:'Studio Ghibli',       fav:52100,
+    scores:{ bangumi:9.7, douban:9.4, mal:8.6 }, avg:9.2, desc:'10岁少女误入神灵世界，踏上找回父母与自我的旅程。奥斯卡最佳动画长片。',
+    cover:'images/spirited.png', tag:'anime', director:'宫崎骏', episodes:1 },
+  { id:'evangelion',rank:10, title:'新世纪福音战士',jp:'Neon Genesis Evangelion',     type:'TV',   genre:['机甲','悬疑'], year:'1995',      studio:'Gainax',              fav:45600,
+    scores:{ bangumi:9.5, douban:9.3, mal:8.6 }, avg:9.1, desc:'颠覆机甲动画，以宗教隐喻与心理描写影响整个ACG产业。',
+    cover:'images/eva.png', tag:'anime', director:'庵野秀明', episodes:26 },
+];
+
+const PAGE_SIZE = 6;
+let curPage = 1;
+let filtered = [...ANIME_DATA];
+let activeFilters = { type:'all', genre:'all', sort:'score' };
+let searchQuery = '';
+
+// ── 筛选 & 搜索 ──────────────────────────
+function applyFilters() {
+  let result = [...ANIME_DATA];
+
+  // 搜索
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    result = result.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.jp.toLowerCase().includes(q) ||
+      (a.studio && a.studio.toLowerCase().includes(q))
+    );
+  }
+
+  // 类型筛选
+  if (activeFilters.type !== 'all') {
+    result = result.filter(a => a.type === activeFilters.type);
+  }
+
+  // 题材筛选
+  if (activeFilters.genre !== 'all') {
+    result = result.filter(a => a.genre && a.genre.includes(activeFilters.genre));
+  }
+
+  // 排序
+  if (activeFilters.sort === 'score')  result.sort((a,b) => b.avg - a.avg);
+  if (activeFilters.sort === 'newest') result.sort((a,b) => b.year.localeCompare(a.year));
+  if (activeFilters.sort === 'fav')    result.sort((a,b) => (b.fav||0) - (a.fav||0));
+
+  filtered = result;
+  curPage = 1;
+  render();
+}
+
+// ── 渲染列表 ──────────────────────────────
+function render() {
+  const list   = document.getElementById('anime-list');
+  const noRes  = document.getElementById('no-result');
+  const countEl= document.getElementById('result-count');
+
+  if (!filtered.length) {
+    list.innerHTML = '';
+    noRes.style.display = 'block';
+    countEl.textContent = '0 个结果';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+  noRes.style.display = 'none';
+
+  const total = filtered.length;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const pageData = filtered.slice((curPage-1)*PAGE_SIZE, curPage*PAGE_SIZE);
+
+  countEl.textContent = searchQuery ? `找到 ${total} 部` : `共 ${total} 部`;
+
+  list.innerHTML = pageData.map((a, i) => {
+    const rank = (curPage-1)*PAGE_SIZE + i + 1;
+    const coverStyle = a.cover
+      ? `style="background-image:url('${a.cover}');background-size:cover;background-position:center;"`
+      : `style="background:linear-gradient(135deg,rgba(255,79,163,0.15),rgba(160,79,255,0.15))"`;
+    return `
+    <div class="anime-row glass-card">
+      <div class="anime-rank">${rank}</div>
+      <div class="anime-cover" ${coverStyle}>
+        ${!a.cover ? `<div class="cover-placeholder"><i class="fa-solid fa-film"></i></div>` : ''}
+      </div>
+      <div class="anime-info">
+        <div class="anime-tags">
+          <span class="tag anime">${a.type}</span>
+          <span class="tag-plain">${a.year}</span>
+          <span class="tag-plain">${a.genre ? a.genre[0] : ''}</span>
+        </div>
+        <h3 class="anime-title">${a.title} <span class="jp">${a.jp}</span></h3>
+        <p class="anime-desc">${a.desc}</p>
+        <div class="anime-meta">
+          <span><i class="fa-solid fa-user"></i> ${a.director}</span>
+          <span><i class="fa-solid fa-building"></i> ${a.studio}</span>
+          <span><i class="fa-solid fa-clock"></i> ${a.episodes}集</span>
+        </div>
+      </div>
+      <div class="anime-scores">
+        <div class="score-breakdown">
+          <div class="score-row"><span>Bangumi</span><strong>${a.scores.bangumi}</strong></div>
+          <div class="score-row"><span>豆瓣</span><strong>${a.scores.douban}</strong></div>
+          <div class="score-row"><span>MAL</span><strong>${a.scores.mal || '—'}</strong></div>
+        </div>
+        <div class="score-avg">${a.avg.toFixed(1)}</div>
+        <div class="score-label">综合评分</div>
+        <div class="anime-actions">
+          <a class="btn-pink" href="#" onclick="handleFav(event,'${a.id}','${a.title}','anime')">收藏</a>
+          <a class="btn-ghost" href="work-detail.html?id=${a.id}">详情</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // 分页
+  renderPagination(totalPages);
+}
+
+// ── 分页 ──────────────────────────────────
+function renderPagination(totalPages) {
+  const pg = document.getElementById('pagination');
+  if (totalPages <= 1) { pg.innerHTML = ''; return; }
+
+  let html = '';
+  if (curPage > 1) html += `<span class="page-btn" onclick="goPage(${curPage-1})"><i class="fa-solid fa-chevron-left"></i></span>`;
+
+  const range = getPaginRange(curPage, totalPages);
+  range.forEach(p => {
+    if (p === '…') { html += `<span class="page-dots">…</span>`; }
+    else { html += `<span class="page-btn${p===curPage?' active':''}" onclick="goPage(${p})">${p}</span>`; }
+  });
+
+  if (curPage < totalPages) html += `<span class="page-btn" onclick="goPage(${curPage+1})"><i class="fa-solid fa-chevron-right"></i></span>`;
+  pg.innerHTML = html;
+}
+
+function getPaginRange(cur, total) {
+  if (total <= 7) return Array.from({length:total},(_,i)=>i+1);
+  const r = [];
+  r.push(1);
+  if (cur > 3) r.push('…');
+  for (let i=Math.max(2,cur-1); i<=Math.min(total-1,cur+1); i++) r.push(i);
+  if (cur < total-2) r.push('…');
+  r.push(total);
+  return r;
+}
+
+function goPage(p) {
+  curPage = p;
+  render();
+  window.scrollTo({ top: 300, behavior:'smooth' });
+}
+
+// ── 收藏 ──────────────────────────────────
+function handleFav(e, id, title, type) {
+  e.preventDefault();
+  if (!Auth.isLoggedIn()) { showToast('请先登录后再收藏'); setTimeout(()=>location.href='login.html',1200); return; }
+  Favorites.toggle({ id, title, type });
+}
+
+// ── 初始化 ────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // 读取 URL 中的 search 参数
+  const urlQ = new URLSearchParams(location.search).get('search');
+  if (urlQ) {
+    searchQuery = urlQ;
+    document.getElementById('main-search').value = urlQ;
+  }
+
+  // 搜索框事件
+  const searchInput = document.getElementById('main-search');
+  let searchTimer;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      searchQuery = searchInput.value.trim();
+      applyFilters();
+    }, 300);
+  });
+  searchInput.addEventListener('keydown', e => { if(e.key==='Enter') { searchQuery=searchInput.value.trim(); applyFilters(); } });
+
+  // 筛选器点击
+  document.querySelectorAll('.filter-chip[data-filter]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const filterType = chip.dataset.filter;
+      const val = chip.dataset.val;
+      // 同组只选一个
+      document.querySelectorAll(`.filter-chip[data-filter="${filterType}"]`).forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilters[filterType] = val;
+      applyFilters();
+    });
+  });
+
+  applyFilters();
+});
+</script>
+</body>
+</html>
