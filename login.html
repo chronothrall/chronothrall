@@ -163,14 +163,20 @@ function doRegister() {
   setError('reg-error','');
   Auth.login(name);
   showToast('✓ 注册成功，欢迎加入！');
-  setTimeout(() => location.href = 'world.html', 1200);
+  setTimeout(() => {
+    const back = new URLSearchParams(location.search).get('back');
+    location.href = back || 'world.html';
+  }, 1200);
 }
 
 function socialLogin(provider) {
   const fakeName = provider + '_User' + Math.floor(Math.random()*9999);
   Auth.login(fakeName);
   showToast('✓ 通过 ' + provider + ' 登录成功');
-  setTimeout(() => location.href = 'world.html', 1200);
+  setTimeout(() => {
+    const back = new URLSearchParams(location.search).get('back');
+    location.href = back || 'world.html';
+  }, 1200);
 }
 </script>
 </body>
