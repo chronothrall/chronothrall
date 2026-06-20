@@ -135,6 +135,11 @@ function togglePw(id, el) {
 
 function setError(id, msg) { document.getElementById(id).textContent = msg; }
 
+function getBackUrl() {
+  const back = new URLSearchParams(location.search).get('back');
+  return back || 'world.html';
+}
+
 function doLogin() {
   const name = document.getElementById('login-name').value.trim();
   const pw = document.getElementById('pw-login').value;
@@ -143,10 +148,7 @@ function doLogin() {
   setError('login-error','');
   Auth.login(name);
   showToast('✓ 登录成功，欢迎回来 ' + name + '！');
-  setTimeout(() => {
-    const back = new URLSearchParams(location.search).get('back');
-    location.href = back || 'world.html';
-  }, 1200);
+  setTimeout(() => { location.href = getBackUrl(); }, 1200);
 }
 
 function doRegister() {
@@ -163,20 +165,14 @@ function doRegister() {
   setError('reg-error','');
   Auth.login(name);
   showToast('✓ 注册成功，欢迎加入！');
-  setTimeout(() => {
-    const back = new URLSearchParams(location.search).get('back');
-    location.href = back || 'world.html';
-  }, 1200);
+  setTimeout(() => { location.href = getBackUrl(); }, 1200);
 }
 
 function socialLogin(provider) {
   const fakeName = provider + '_User' + Math.floor(Math.random()*9999);
   Auth.login(fakeName);
   showToast('✓ 通过 ' + provider + ' 登录成功');
-  setTimeout(() => {
-    const back = new URLSearchParams(location.search).get('back');
-    location.href = back || 'world.html';
-  }, 1200);
+  setTimeout(() => { location.href = getBackUrl(); }, 1200);
 }
 </script>
 </body>
