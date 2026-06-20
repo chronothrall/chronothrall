@@ -905,6 +905,51 @@ const WORKS = {
     ],
     posts:[]
 },
+  'ghost': {
+    id:'ghost', type:'anime',
+    title:'新攻壳机动队', sub:'Ghost in the Shell (2026)',
+    desc:'Science Saru 打造的《攻壳机动队》全新动画项目，以全新视角诠释赛博朋克经典，2026年7月7日开播。',
+    story:'2026年，Science Saru 推出的《攻壳机动队》改编自士郎正宗创作的同名漫画。素子·草薙与公安九课在高度赛博化的社会中追缉幕后黑手，逐渐发现足以撼动整个社会秩序的巨大阴谋。人类意识与义体技术的深度融合，让"人"的定义本身成为最大的悬案。',
+    coverImg:'images/ghost.png', coverColor:'#0d1a2a',
+    scores:{ bangumi:9.2, douban:9.0, mal:8.8 },
+    meta:{ type:'TV动画', episodes:24, year:'2026', studio:'Science Saru', director:'湯浅政明', author:'士郎正宗', rating:'PG-13' },
+    info:{ '首播年份':'2026年7月7日', '话数':'24话', '制作公司':'Science Saru', '原作':'士郎正宗《攻壳机动队》', '播出平台':'Netflix', '类型':'TV动画' },
+    cast:[ { name:'草薙素子', role:'公安九课队长', cv:'坂本真綾' }, { name:'巴特', role:'搭档', cv:'大塚明夫' } ],
+    related:[],
+    recommend:[ {title:'新世纪福音战士',id:'evangelion'}, {title:'反叛的鲁路修',id:'code-geass'} ],
+    posts:[{id:'1',title:'《进击的巨人》结局你满意吗？',author:'Ace_V2',votes:1243,comments:342,time:'2小时前',type:'anime'}]
+  },
+
+  'stellarblade': {
+    id:'stellarblade', type:'game',
+    title:'剑星：血雨', sub:'Stellar Blade: BLOOD RAIN',
+    desc:'SHIFT UP 动作冒险系列下一章，引入全新主角伊薇，2026夏日游戏节首曝预告震撼登场。',
+    story:'地球被神秘外星种族侵占，人类退守宇宙殖民地。外部部队战士伊薇（Evie）随第七波攻势降临地表，在废土都市中与幸存者并肩作战，寻找反击敌人的关键线索。比前作更宏大的世界观与更流畅的动作系统将带来截然不同的体验。',
+    coverImg:'images/stellar blade.png', coverColor:'#1a1028',
+    scores:{ bangumi:9.0, douban:8.8, mal:null },
+    meta:{ type:'动作冒险', platforms:'PS5 / PC', year:'2026（预计）', developer:'SHIFT UP', director:'金亨泰', rating:'M' },
+    info:{ '预计发售':'2026年', '平台':'PS5 / PC', '开发商':'SHIFT UP', '发行商':'索尼互动娱乐', '类型':'动作冒险 RPG', '前作':'剑星（2024）' },
+    cast:[ { name:'伊薇（Evie）', role:'新主角', cv:'未公开' }, { name:'伊芙（Eve）', role:'前作主角', cv:'金智妍' } ],
+    related:[],
+    recommend:[ {title:'艾尔登法环',id:'eldenring'}, {title:'只狼：影逝二度',id:'sekiro'} ],
+    posts:[{id:'3',title:'你最喜欢的二次元游戏TOP10',author:'GameOtaku',votes:2341,comments:512,time:'1天前',type:'game'}]
+  },
+
+  'gta6': {
+    id:'gta6', type:'game',
+    title:'GTA VI', sub:'Grand Theft Auto VI',
+    desc:'Rockstar Games 旗舰新作，带玩家前往雷奥奈达州与罪恶城，GTA系列迄今规模最大的演化。',
+    story:'故事发生在雷奥奈达州，围绕罪恶城展开。玩家扮演系列首位女主角露西娅与搭档Jason，在这座充满罪恶与机遇的都市中谋求生存。游戏于2026年5月26日登陆PS5和Xbox Series平台。',
+    coverImg:'images/gta.png', coverColor:'#0d1f1a',
+    scores:{ bangumi:9.5, douban:9.3, mal:null },
+    meta:{ type:'开放世界动作', platforms:'PS5 / Xbox Series', year:'2026', developer:'Rockstar Games', director:'Rockstar Studios', rating:'M' },
+    info:{ '发售日期':'2026年5月26日', '平台':'PS5 / Xbox Series', '开发商':'Rockstar Games', '发行商':'Take-Two Interactive', '类型':'开放世界动作冒险', '前作':'GTA V（2013）' },
+    cast:[ { name:'露西娅', role:'女主角', cv:'未公开' }, { name:'Jason', role:'男主角', cv:'未公开' } ],
+    related:[],
+    recommend:[ {title:'艾尔登法环',id:'eldenring'}, {title:'塞尔达传说：旷野之息',id:'zelda-botw'} ],
+    posts:[{id:'3',title:'你最喜欢的二次元游戏TOP10',author:'GameOtaku',votes:2341,comments:512,time:'1天前',type:'game'}]
+  },
+
 };
 // 推荐逻辑：同类型其他作品
 function getRecommends(work) {
