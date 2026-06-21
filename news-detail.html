@@ -64,11 +64,19 @@
     </div>
   </div>
 
-  <footer class="footer"><div class="inner">© 2026 Anime Nexus</div></footer>
+  <footer class="footer"><div class="inner">© 2025 Anime Nexus</div></footer>
 </div>
 
 <script src="js/navbar.js"></script>
 <script>
+// 新闻封面图映射（id → 图片路径）
+const NEWS_COVERS = {
+  '1': 'images/ghost.png',
+  '2': 'images/fll.png',
+  '3': 'images/erd.png',
+  '4': 'images/hunter.png'
+};
+
 const NEWS_DATA = {
   '1':{ id:'1', tag:'anime', tagLabel:'动画', time:'2025年6月19日', title:'《攻壳机动队》全新系列动画官宣：押井守监制，2025年秋季播出', content:`<p>Production I.G 今日正式公布，《攻壳机动队》（Ghost in the Shell）全新系列动画将于2025年秋季档播出。</p><p>据官方透露，押井守将担任总监制，导演一职由新生代创作者出任，故事设定在《攻壳机动队：SAC》宇宙线延续时间线之后，将引入全新主角与全新的哲学命题。</p><p>《攻壳机动队》自1995年剧场版以来，以其对"人类意识与机械身体"的深度探讨影响了全球科幻文化。新系列将延续这一核心命题，同时融入当代AI与数字身份的现实议题。</p><p>目前配音阵容与具体播出档期尚未公开，官方表示将于2025年8月的 Aniplex 发布会上进行详细公布。</p>` },
   '2':{ id:'2', tag:'manga', tagLabel:'漫画', time:'2025年6月19日', title:'《葬送的芙莉莲》剧场版企划正式立项，原班人马回归', content:`<p>动画制作公司 Madhouse 官方宣布，《葬送的芙莉莲》剧场版已进入筹备阶段。</p><p>据消息，剧场版将延续TV版原班人马：导演斋藤圭一郎、音乐 Evan Call，以及全员声优阵容均将回归。预计将于2026年上映。</p><p>《葬送的芙莉莲》TV版于2023年播出后获得年度最高评价，在 Bangumi、豆瓣、MAL 三平台均取得极高分数。剧场版据称将改编漫画中尚未动画化的"大一统魔法试验"篇章。</p>` },
@@ -91,12 +99,22 @@ window.addEventListener('DOMContentLoaded', () => {
       <h1 class="nd-art-title">${news.title}</h1>
       <div class="nd-art-byline"><i class="fa-solid fa-user-pen"></i> Anime Nexus 编辑部 &nbsp;·&nbsp; <i class="fa-solid fa-clock"></i> 3分钟阅读</div>
     </div>
-    <div class="nd-art-img-placeholder"><i class="fa-solid fa-newspaper"></i></div>
+    <div class="nd-art-img-placeholder" id="nd-art-img"><i class="fa-solid fa-newspaper"></i></div>
     <div class="nd-art-body">${news.content}</div>
     <div class="nd-art-footer">
       <button class="pd-action-btn" onclick="shareNews()"><i class="fa-solid fa-share"></i> 分享</button>
       <button class="pd-action-btn" onclick="showToast('✓ 已加入阅读列表')"><i class="fa-solid fa-bookmark"></i> 收藏</button>
     </div>`;
+
+  // 设置封面图
+  const imgEl = document.getElementById('nd-art-img');
+  if (imgEl && NEWS_COVERS[news.id]) {
+    imgEl.style.backgroundImage = `url('${NEWS_COVERS[news.id]}')`;
+    imgEl.style.backgroundSize = 'cover';
+    imgEl.style.backgroundPosition = 'center top';
+    imgEl.innerHTML = '';
+    imgEl.style.opacity = '0.85';
+  }
 
   // more news
   document.getElementById('more-news').innerHTML = MORE_LINKS.filter(n=>n.id!==id).slice(0,3).map(n=>`<a href="news-detail.html?id=${n.id}" class="related-item">${n.title}</a>`).join('');
