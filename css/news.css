@@ -30,6 +30,12 @@
     min-height: 200px;
 }
 
+.news-featured-img--cover {
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+}
+
 .featured-placeholder {
     font-size: 48px;
     color: rgba(255,255,255,0.1);
@@ -204,4 +210,3 @@
     font-size: 11px;
     color: rgba(255,255,255,0.35);
 }/* CSS Document */
-
