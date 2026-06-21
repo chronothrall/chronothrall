@@ -1,5 +1,5 @@
 /**
- * navbar.js — Anime Nexus 全站共用脚本 v2
+ * navbar.js — Anime Nexus 全站共用脚本 v2,o.0?
  * 修复：登录状态全站同步、收藏系统、Toast、筛选器
  */
 
@@ -184,4 +184,18 @@ function bindFilterChips() {
 document.addEventListener('DOMContentLoaded', () => {
   renderNavUser();
   bindFilterChips();
+
+  // 自动给 footer 追加"关于我们"链接（若还没有）
+  const footer = document.querySelector('.footer .inner');
+  if (footer && !footer.querySelector('a[href="about.html"]')) {
+    const sep = document.createTextNode(' · ');
+    const link = document.createElement('a');
+    link.href = 'about.html';
+    link.textContent = '关于我们';
+    link.style.cssText = 'color:rgba(255,255,255,0.4);text-decoration:none;transition:color .2s;';
+    link.onmouseover = () => link.style.color = '#ff4fa3';
+    link.onmouseout  = () => link.style.color = 'rgba(255,255,255,0.4)';
+    footer.appendChild(sep);
+    footer.appendChild(link);
+  }
 });
